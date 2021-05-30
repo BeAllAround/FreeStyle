@@ -10,18 +10,7 @@ struct Node{
 	struct Node*node{NULL};
 	Node()=default;
 };
-
 typedef struct Node Node;
-struct Node* newNode(int*data)
-{
-    // Allocate memory for new node
-    struct Node* node
-        = (struct Node*)malloc(sizeof(struct Node));
- 
-    node->item = data;
- 
-    return (node);
-}
 
 void append(Node*&n, int*_item){
 	Node*&P = n;
