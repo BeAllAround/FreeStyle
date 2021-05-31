@@ -27,8 +27,8 @@ void append(Node*&n, int*_item){
 		}
 		P0 = P0->node;	
 	}
-	PLast->node = new Node;
-	PLast->node->item = _item;
+	PLast->node = new Node; // inject the missing node
+	PLast->node->item = _item; // and assign new data
 }
 
 void show(Node*node){
