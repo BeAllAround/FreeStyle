@@ -65,9 +65,11 @@ void show(Node*node){
 
 
 
-std::ostream&operator<<(std::ostream&C, Node*&node){
-	show(node);
-	return C;
+std::ostream&operator<<(std::ostream&, Node*&);
+
+std::ostream&operator<<(std::ostream&input, Node*&n){
+	show(n);
+	return input;
 }
 
 int main(){
