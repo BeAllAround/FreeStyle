@@ -49,7 +49,7 @@ void remove(Node*&n, int _item){
 		Copy = Copy->node;
 	}
 
-	n = Shift; // override the existing variable;
+	n = Shift; // overwrite the existing variable;
 	return;
 }
 
