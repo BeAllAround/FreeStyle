@@ -53,14 +53,15 @@ void remove(Node*&n, int _item){
 	return;
 }
 
-void show(Node*node){
+std::ostream&show(std::ostream&C, Node*node){
 	Node*&n = node;
-	std::cout << "[ ";
+	C << "[ ";
 	while(n!=NULL){
 		printf("%d, ", *(n->item));
 		n = n->node;
 	}
-	std::cout << "]";
+	C << "]";
+	return C;
 }
 
 
@@ -68,8 +69,7 @@ void show(Node*node){
 std::ostream&operator<<(std::ostream&, Node*&);
 
 std::ostream&operator<<(std::ostream&input, Node*&n){
-	show(n);
-	return input;
+	return show(input, n);
 }
 
 int main(){
@@ -92,6 +92,7 @@ int main(){
 	remove(n, 74);
 	remove(n, 51);
 	remove(n, 94);
+	remove(n, 26);
 
 	std::cout << n << std::endl;
 	return 0;
