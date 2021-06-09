@@ -14,6 +14,7 @@ function findIndex(string, index, open, close){
 function validBraces(braces){
   let c = 0, c1=0, c2=0;
   var first, second;
+  if(braces=="")return false;
   for(let i = 0; i<braces.length; i++){
     if(braces[i]=="(")c++
     if(braces[i]==")")c--;
@@ -49,15 +50,25 @@ function looper(string, start, brace, _brace, brace1, _brace1, brace2, _brace2){
 		c = FIND(string, brace, c);
 		c0 = c;
 		c = findIndex(string, c, brace, _brace);
+		if(c0>=c){
+			console.log("DEBUG");
+			return false;
+		}
 		for(let i=c0+1; i<c; i++){
 			if(string[i]==brace){
+				if(findIndex(string, i, brace, _brace)==-1)
+					return false;
 				if(!looper(string, i, brace, _brace, brace1, _brace1, brace2, _brace2))return false;
 			}
 			if(string[i]==brace1){
+				if(findIndex(string, i, brace1, _brace1)==-1)
+					return false;
 				if(!looper(string, i, brace1, _brace1, brace, _brace, brace2, _brace2))return false;
 
 			}
 			if(string[i]==brace2){
+				if(findIndex(string, i, brace2, _brace2)==-1)
+					return false;
 				if(!looper(string, i, brace2, _brace2, brace, _brace, brace1, _brace1))return false;
 			}
 			if(string[i]==brace1)inner1++;
@@ -90,3 +101,12 @@ console.log(validBraces("() [] {{{}[}{]}}")); // false
 console.log(validBraces("() [] [([[][][[]]])]")); // true
 console.log(validBraces("() [] [([[(])[]()[[]]])]")); // false
 console.log(validBraces("({}, {(), []},) [] [[[[]{}]{}]()]")); // true
+console.log(validBraces("[] [] {[]}{} {{{{{}}}}}()[](())({)}()")); // false
+
+console.log("-------------------");
+console.log(validBraces("(){}[]")); // true
+console.log(validBraces("([{}])")); // true
+console.log(validBraces("(}")); // false
+console.log(validBraces("[(])")); // false
+console.log(validBraces("[({})](]")); // false
+console.log(validBraces(")(}{][")); // false
