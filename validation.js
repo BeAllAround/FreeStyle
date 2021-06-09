@@ -50,10 +50,6 @@ function looper(string, start, brace, _brace, brace1, _brace1, brace2, _brace2){
 		c = FIND(string, brace, c);
 		c0 = c;
 		c = findIndex(string, c, brace, _brace);
-		if(c0>=c){
-			console.log("DEBUG");
-			return false;
-		}
 		for(let i=c0+1; i<c; i++){
 			if(string[i]==brace){
 				if(findIndex(string, i, brace, _brace)==-1)
