@@ -99,6 +99,7 @@ console.log(validBraces("() [] [([[(])[]()[[]]])]")); // false
 console.log(validBraces("({}, {(), []},) [] [[[[]{}]{}]()]")); // true
 console.log(validBraces("[] [] {[]}{} {{{{{}}}}}()[](())({)}()")); // false
 
+// CodeWars tests
 console.log("-------------------");
 console.log(validBraces("(){}[]")); // true
 console.log(validBraces("([{}])")); // true
