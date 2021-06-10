@@ -14,4 +14,4 @@ void RUN(){
 	TESTS();
 	main();
 }
-int main(){};
+int main(){return 0;};
