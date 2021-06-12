@@ -28,3 +28,40 @@ delete list[0]; // null
 delete list[1]; // null
 list = list.filter(n=>n!=null);
 console.log(list);
+
+function findObject(obj, item, name){
+        if(name==item){
+                return 1;
+        }
+        if(obj instanceof Object){
+                for(var o in obj){
+                        if(findObject(obj[o], item, o)==1)return 1;
+                }
+        }
+        return 0;
+}
+
+function returnObject(obj, item, name){
+        if(name==item){
+                return obj;
+        }
+        if(obj instanceof Object){
+                for(var o in obj){
+                        if(findObject(obj[o], item, o)==1)
+                                return returnObject(obj[o], item, o);
+                }
+        }
+}
+
+function return_object(obj, item){
+        return returnObject(obj, item, ""); // starting point...
+}
+
+// another example of erasing
+console.log("---------------------");
+var obj2 = {want: 11, love: {me: "why", you: {e: {me: "AE"}}, ha: "HA",},};
+
+console.log(return_object(obj2, "e"));
+console.log(return_object(obj2, "ha"));
+console.log(return_object(obj2, "you"));
+console.log(return_object(obj2, "want"));
