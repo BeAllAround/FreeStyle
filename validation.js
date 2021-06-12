@@ -107,3 +107,25 @@ console.log(validBraces("(}")); // false
 console.log(validBraces("[(])")); // false
 console.log(validBraces("[({})](]")); // false
 console.log(validBraces(")(}{][")); // false
+
+
+function removeElement(obj, elem){
+        var s = {};
+        if(obj instanceof Object){
+                for(var o of Object.keys(obj)){
+                        if(o==elem){
+                                delete obj[o];
+                                return; // terminate further recursion
+                        }
+                        removeElement(obj[o], elem);
+                }
+        }
+}
+var obj = {want: "10", love: {me: "why", you: {e: "E"}, ha: "HA",},};
+
+removeElement(obj, "e");
+removeElement(obj, "want");
+removeElement(obj, "you");
+removeElement(obj, "ha");
+
+console.log(obj);
