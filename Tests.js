@@ -64,8 +64,8 @@ function return_object(obj, item){
 console.log("---------------------");
 var obj2 = {want: 11, ha:{WHERE: 10}, love: {me: "why", you: {me: 401, ha: "DATA", e: {me: "AE"}}, ha: {data: "KEY"},}, me: "WE",};
 console.log(obj2);
-console.log(return_object(obj2, "e"));
-console.log(return_object(obj2, "ha"));
-console.log(return_object(obj2, "want"));
-console.log(return_object(obj2, "you"));
-console.log(return_object(obj2, "me"));
+console.log(return_object(obj2, "e")); // [ { me: 'AE' } ]
+console.log(return_object(obj2, "ha")); // [ { WHERE: 10 }, 'DATA', { data: 'KEY' } ]
+console.log(return_object(obj2, "want")); // [ 11 ]
+console.log(return_object(obj2, "you")); // [ { me: 401, ha: 'DATA', e: { me: 'AE' } } ]
+console.log(return_object(obj2, "me")); // [ 'why', 401, 'AE', 'WE' ]
