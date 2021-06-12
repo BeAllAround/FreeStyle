@@ -14,7 +14,7 @@ function removeElement(obj, elem){
 }
 var obj = {want: "10", love: {me: "why", you: {e: {me: "AE"}}, ha: "HA",},};
 
-removeElement(obj, "me");
+removeElement(obj, "me"); // or just -> while(removeElement(obj, "me"));
 console.log(obj);
 
 console.log(removeElement(obj, "me"));
