@@ -41,27 +41,31 @@ function findObject(obj, item, name){
         return 0;
 }
 
-function returnObject(obj, item, name){
+function returnObject(obj, item, name, list){
         if(name==item){
-                return obj;
+                list.push(obj);
+                return list;
         }
         if(obj instanceof Object){
                 for(var o in obj){
-                        if(findObject(obj[o], item, o)==1)
-                                return returnObject(obj[o], item, o);
+                        if(findObject(obj[o], item, o)==1){
+                                list = returnObject(obj[o], item, o, list);
+                        }
                 }
+                return list;
         }
 }
 
 function return_object(obj, item){
-        return returnObject(obj, item, ""); // starting point...
+        return returnObject(obj, item, "", []); // starting point...
 }
 
 // another example of erasing
 console.log("---------------------");
-var obj2 = {want: 11, love: {me: "why", you: {e: {me: "AE"}}, ha: "HA",},};
-
+var obj2 = {want: 11, ha:{WHERE: 10}, love: {me: "why", you: {me: 401, ha: "DATA", e: {me: "AE"}}, ha: {data: "KEY"},}, me: "WE",};
+console.log(obj2);
 console.log(return_object(obj2, "e"));
 console.log(return_object(obj2, "ha"));
-console.log(return_object(obj2, "you"));
 console.log(return_object(obj2, "want"));
+console.log(return_object(obj2, "you"));
+console.log(return_object(obj2, "me"));
