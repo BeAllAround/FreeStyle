@@ -60,6 +60,20 @@ function return_object(obj, item){
         return returnObject(obj, item, "", []); // starting point...
 }
 
+/*
+ // if looking for an extension, there it is!
+ 
+function return__object(obj, item){
+        return returnObject(obj, item, "", []); // starting point...
+}
+
+function return_object(obj, item){
+        var list, _obj={};
+        _obj[`${item}`] = (list = return__object(obj, item)).length == 1 ? list[0] : list;
+        return _obj;
+}
+*/
+
 // another example of erasing
 console.log("---------------------");
 var obj2 = {want: 11, ha:{WHERE: 10}, love: {me: "why", you: {me: 401, ha: "DATA", e: {me: "AE"}}, ha: {data: "KEY"},}, me: "WE",};
