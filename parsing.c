@@ -55,13 +55,14 @@ char* crop(char* str, int start, int end){
 char* parse(char* str, ...)
 { // you need the first argument to start with
 	char* data = (char*)malloc(10000);
-	int l = 0;
+	int l = 0, c = 0;
 	int date = strlen("%date");
 	int i;
 
 	for(i = 0; i < strlen(str); i++){
 		if(_trim(str, "%date", i, date)){
 			i += date - 1; 
+			c++;
 			continue;
 		}
 		data[l++] = str[i];
@@ -69,13 +70,14 @@ char* parse(char* str, ...)
 
 	}
 	data[l++] = 0;
+	printf("C: %d\n", c);
 	return data;
 }
 
 
 int main(){
 	Date d = newDate("3/21/2021");
-	printf("%s", parse("dddd%date%date%date %date d %date %date %date s %dates -\n", &d));
+	printf("%s", parse("dddd%date%date%date %date d %date%date%date s %dates -\n", &d));
 
 	return 0;
 }
