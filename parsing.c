@@ -57,27 +57,36 @@ char* parse(char* str, ...)
 	char* data = (char*)malloc(10000);
 	int l = 0, c = 0;
 	int date = strlen("%date");
-	int i;
+	int i, j;
+	char*_date;
+
+	// set up various arguments package
+	va_list argptr;
+	va_start(argptr, strlen(str));
 
 	for(i = 0; i < strlen(str); i++){
 		if(_trim(str, "%date", i, date)){
 			i += date - 1; 
-			c++;
+			_date = (((Date*)va_arg(argptr, void*))->str);
+			for(j=0; j<strlen(_date); j++){
+				data[l++] = _date[j];
+			}
+			// c++;
 			continue;
 		}
 		data[l++] = str[i];
-		// printf("%s\n", crop(str, i, 5));
 
 	}
+	va_end(argptr);
 	data[l++] = 0;
-	printf("C: %d\n", c);
 	return data;
 }
 
 
 int main(){
 	Date d = newDate("3/21/2021");
-	printf("%s", parse("dddd%date%date%date %date d %date%date%date s %dates -\n", &d));
+	Date d1 = newDate("3/22/2021");
+	printf("%s", parse("TODAY: %date\nTOMORROW: %date\n", &d, &d1));
 
 	return 0;
 }
