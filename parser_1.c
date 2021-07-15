@@ -1,16 +1,20 @@
 #include<stdlib.h>
 #include<stdio.h>
 
+#define null NULL
+
+
 struct Arr{
 	int* num;
 	char* string;
-	int* id;
+	int id; // make sure you navigate the initializer(s)
 
 	struct Arr* next;
 	struct Arr* arr;
 };
 
 typedef struct Arr* Array;
+typedef void* voidP;
 
 void appendString(Array arr, char* string){
 	Array last, node = arr;
@@ -66,6 +70,39 @@ Array removeArrays(Array arr, Array new){
 	return new;
 }
 
+voidP atIndex(Array arr, int index){
+	Array last, node = arr;
+	int c, length = 0;
+	// if(index>0)
+		// index--; // NEED TO SOLVE THIS SOMEHOW!
+
+	while(node != NULL){
+		length++;
+		node = node->next;
+	}
+
+	if(index >= length){
+		printf("\"---Index ERROR\"\n"); // exit(1);
+		return null;
+	}
+
+	node = arr; // reset
+	for(c = 0; c < length; c++){
+		if(index == c){
+			last = node;
+			break;
+		}
+		node = node->next;
+	}
+	if(last->string)
+		return last->string;
+	if(last->num)
+		return last->num;
+	if(last->arr)
+		return last->arr;
+}
+
+
 void printAll(Array arr){
 	Array node = arr;
 	int c = 0;
@@ -88,7 +125,8 @@ void printAll(Array arr){
 		}
 
 		node = node->next;
-		c = 1;
+		if(!c)
+			c = 1;
 	}
 	printf("]");
 }
@@ -139,6 +177,17 @@ int main(void){
 	printArray(arr1);
 	// ["SUPER", "_s_", 11, "SUPER!!!", "WHAT? ", 40000, 404, "LAST", 404, 10, 11, "WHY SO?", "FINAL"]
 
+	int* S1 = (int*)atIndex(arr1->next, 6);
+	char* S2 = (char*)atIndex(arr1->next, 12);
+
+	printf("%s\n", S2);
+	printf("%d\n", *S1);
+
+	// other tryOuts;
+	atIndex(arr1->next, 12);
+	atIndex(arr1->next, 11);
+	atIndex(arr1->next, 10);
+	atIndex(arr1->next, 13); // "---Index ERROR" -> void*
 
 	return 0;
 }
