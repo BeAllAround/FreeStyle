@@ -60,13 +60,15 @@ void printAll(Array arr){
 			printf("\"%s\"", node->string);
 		if(node->num)
 			printf("%d", *node->num);
+
+		if(node->arr){
+			printf(", ");
+			printAll(node->arr);
+		}
+
 		if(c){
 			if(node->next)
 				printf(", ");
-		}
-		if(node->arr){
-			printAll(node->arr);
-			printf(", ");
 		}
 
 		node = node->next;
@@ -99,6 +101,7 @@ int main(void){
 	*/
 	appendInt(arr->next->next->next->arr->next->next->arr, &m3);
 	appendInt(arr->next->next->next->arr->next->next->arr, &m2);
+	appendString(arr->next->next->next->arr->next->next->arr, "LAST");
 	appendInt(arr->next->next->next->arr, &m2);
 
 
