@@ -133,7 +133,7 @@ int main(void){
 	appendString(arr, "FINAL");
 
 	printArray(arr);
-	// ["SUPER", "_s_", 11, ["SUPER!!!", "WHAT? ", [40000, 404, "LAST"], 404], 10, 10, ["WHY SO?"], "FINAL"]
+	// ["SUPER", "_s_", 11, ["SUPER!!!", "WHAT? ", [40000, 404, "LAST"], 404], 10, 11, ["WHY SO?"], "FINAL"]
 
 	Array arr1 = removeArrays(arr->next, (Array)malloc(sizeof(struct Arr)));
 	printArray(arr1);
