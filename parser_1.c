@@ -108,6 +108,10 @@ int main(void){
 
 	printAll(arr);
 	printf("\n");
+	/*
+	 * -> ["SUPER", "_s_", 11, ["SUPER!!!", "WHAT? ", [40000, 404], 404], 10, 10[], ]
+
+	 */
 
 	return 0;
 }
