@@ -23,7 +23,6 @@ void appendString(Array arr, char* string){
 	// last->arr = (Array)malloc(sizeof(struct Arr));
 	last->next = (Array)malloc(sizeof(struct Arr));
 	last->next->string = string;
-	last->next->num = NULL;
 }
 
 void appendInt(Array arr, int* num){
@@ -36,7 +35,6 @@ void appendInt(Array arr, int* num){
         }
         last->next = (Array)malloc(sizeof(struct Arr));
         last->next->num = num;
-	last->next->string = NULL;
 }
 
 void appendArray(Array arr){
@@ -48,6 +46,24 @@ void appendArray(Array arr){
 		node = node->next;
 	}
 	last->arr = (Array)malloc(sizeof(struct Arr));
+}
+
+Array removeArrays(Array arr, Array new){
+	Array node = arr;
+	if((!node->string) && (!node->num) && (!node->arr)){
+		return new;
+	}
+	while(node != NULL){
+		if(node->string)
+			appendString(new, node->string);
+		if(node->num)
+			appendInt(new, node->num);
+		if(node->arr)
+			new = removeArrays(node->arr->next, new);
+
+		node = node->next;
+	}
+	return new;
 }
 
 void printAll(Array arr){
@@ -75,6 +91,11 @@ void printAll(Array arr){
 		c = 1;
 	}
 	printf("]");
+}
+
+void printArray(Array arr){ // redefine it with an additional line
+	printAll(arr);
+	printf("\n");
 }
 
 
@@ -106,19 +127,18 @@ int main(void){
 
 
 	appendInt(arr, &m);
-	appendInt(arr, &m);
+	appendInt(arr, &m1);
 	appendArray(arr);
 	appendString(arr->next->next->next->next->next->arr, "WHY SO?");
 	appendString(arr, "FINAL");
 
-	printAll(arr);
-	printf("\n");
+	printArray(arr);
+	// ["SUPER", "_s_", 11, ["SUPER!!!", "WHAT? ", [40000, 404, "LAST"], 404], 10, 10, ["WHY SO?"], "FINAL"]
 
-	/*
-	
-	 * -> ["SUPER", "_s_", 11, ["SUPER!!!", "WHAT? ", [40000, 404, "LAST"], 404], 10, 10, ["WHY SO?"], "FINAL"]
+	Array arr1 = removeArrays(arr->next, (Array)malloc(sizeof(struct Arr)));
+	printArray(arr1);
+	// ["SUPER", "_s_", 11, "SUPER!!!", "WHAT? ", 40000, 404, "LAST", 404, 10, 11, "WHY SO?", "FINAL"]
 
-	 */
 
 	return 0;
 }
