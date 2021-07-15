@@ -108,11 +108,15 @@ int main(void){
 	appendInt(arr, &m);
 	appendInt(arr, &m);
 	appendArray(arr);
+	appendString(arr->next->next->next->next->next->arr, "WHY SO?");
+	appendString(arr, "FINAL");
 
 	printAll(arr);
 	printf("\n");
+
 	/*
-	 * -> ["SUPER", "_s_", 11, ["SUPER!!!", "WHAT? ", [40000, 404], 404], 10, 10[], ]
+	
+	 * -> ["SUPER", "_s_", 11, ["SUPER!!!", "WHAT? ", [40000, 404, "LAST"], 404], 10, 10, ["WHY SO?"], "FINAL"]
 
 	 */
 
