@@ -94,12 +94,13 @@ voidP atIndex(Array arr, int index){
 		}
 		node = node->next;
 	}
+	
+	if(last->arr)
+		return last->arr;
 	if(last->string)
 		return last->string;
 	if(last->num)
 		return last->num;
-	if(last->arr)
-		return last->arr;
 }
 
 
