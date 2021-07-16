@@ -79,12 +79,12 @@ voidP atIndex(Array arr, int index){
 	// if(index>0)
 		// index--; // NEED TO SOLVE THIS SOMEHOW!
 	if(!index){
-		if(node->arr)
-			return node->arr;
-		if(node->num)
-			return node->num;
-		if(node->string)
-			return node->string;
+		if(node->next->arr)
+			return node->next->arr;
+		if(node->next->num)
+			return node->next->num;
+		if(node->next->string)
+			return node->next->string;
 	}
 
 	while(node != NULL){
@@ -222,12 +222,12 @@ int main(void){
 	printArray(arr1);
 	// ["SUPER", "_s_", 11, "SUPER!!!", "WHAT? ", 40000, 404, "LAST", 404, 10, 11, "WHY SO?", "FINAL"]
 
-	int* S1 = (int*)atIndex(arr1->next, 8);
-	char* S2 = (char*)atIndex(arr1->next, 12);
+	int* S1 = (int*)atIndex(arr1, 8);
+	char* S2 = (char*)atIndex(arr1, 12);
 
 	printf("%s\n", S2); // "FINAL"
 	printf("%d\n", *S1); // 404
-	S2 = (char*)atIndex(arr1->next, 0);
+	S2 = (char*)atIndex(arr1, 0);
 	printf("%s\n", S2); // "SUPER"
 
 	// other tryOuts;
