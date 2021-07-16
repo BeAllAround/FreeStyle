@@ -147,7 +147,7 @@ voidP atIndex(Array arr, int index){
 
 void printAll(Array arr){
 	Array node = arr;
-	int c = 0;
+	int c1 = 0, c = 0;
 
 	printf("[");
 	while(node != NULL){
@@ -157,18 +157,20 @@ void printAll(Array arr){
 			printf("%d", *node->num);
 
 		if(node->arr){
-			printf(", ");
+			if(c1)
+				printf(", ");
 			printAll(node->arr);
+			if(!c1)
+				printf(", ");
 		}
 
 		if(c){
 			if(node->next)
 				printf(", ");
 		}
-
 		node = node->next;
-		if(!c)
-			c = 1;
+		c = 1;
+		c1 = 1;
 	}
 	printf("]");
 }
