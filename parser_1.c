@@ -72,28 +72,67 @@ Array removeArrays(Array arr, Array new){
 
 voidP atIndex(Array arr, int index){
 	Array last, node = arr;
-	int c, length = 0;
+	int c, _l = 1;
+	int c1 = 0;
 	// if(index>0)
 		// index--; // NEED TO SOLVE THIS SOMEHOW!
+	if(!index){
+		if(node->arr)
+			return node->arr;
+		if(node->num)
+			return node->num;
+		if(node->string)
+			return node->string;
+	}
 
 	while(node != NULL){
-		length++;
+		if(node->string){
+			// printf("%s\n", node->string); // debugging part!
+			if(_l == index){
+				last = node;
+			}
+			if(c1)
+				_l++;
+			c1 = 1;
+
+		}
+		if(node->num){
+			// printf("%d\n", *node->num);
+			if(_l == index){
+				last = node;
+			}
+			if(c1)
+				_l++;
+			c1 = 1;
+
+		}
+		if(node->arr){
+			// printf("[Array]\n");
+			if(_l == index){
+				last = node;
+			}
+			if(c1)
+				_l++;
+			c1 = 1;
+		}
 		node = node->next;
 	}
 
-	if(index >= length){
+	if(index >= _l){
 		printf("\"---Index ERROR\"\n"); // exit(1);
 		return null;
 	}
 
+	/*
 	node = arr; // reset
-	for(c = 0; c < length; c++){
+	for(c = 0; c < _l; c++){
 		if(index == c){
 			last = node;
 			break;
 		}
 		node = node->next;
 	}
+	*/
 	
 	if(last->arr)
 		return last->arr;
@@ -178,13 +217,16 @@ int main(void){
 	printArray(arr1);
 	// ["SUPER", "_s_", 11, "SUPER!!!", "WHAT? ", 40000, 404, "LAST", 404, 10, 11, "WHY SO?", "FINAL"]
 
-	int* S1 = (int*)atIndex(arr1->next, 6);
+	int* S1 = (int*)atIndex(arr1->next, 8);
 	char* S2 = (char*)atIndex(arr1->next, 12);
 
 	printf("%s\n", S2);
 	printf("%d\n", *S1);
 
 	// other tryOuts;
+	printArray((Array)atIndex(arr, 3));
+	printArray((Array)atIndex(arr, 6));
+	printArray((Array)atIndex((Array)atIndex(arr, 3), 2));
 	atIndex(arr1->next, 12);
 	atIndex(arr1->next, 11);
 	atIndex(arr1->next, 10);
