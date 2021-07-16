@@ -8,14 +8,16 @@ struct Arr{
 	char* string;
 	int id; // make sure you navigate the initializer(s)
 
-	struct Arr* next;
-	struct Arr* arr;
+	struct Arr* next; // nextIndex slot
+	struct Arr* arr; // Array slot
 };
 
 typedef struct Arr* Array;
 typedef void* voidP;
+
 extern void printAll(Array);
 extern void printArray(Array);
+extern int getLength(Array);
 
 void appendString(Array arr, char* string){
 	Array last, node = arr;
@@ -55,9 +57,9 @@ void appendArray(Array arr){
         last->next = (Array)malloc(sizeof(struct Arr));
 }
 
-voidP atIndex(Array arr, int index){
+int getLength(Array arr){
 	Array node = arr;
-	int i, c = 0;
+	int c = 0;
 	while(node != NULL){ // count up all the types
 		if(node->string)
 			c++;
@@ -67,12 +69,18 @@ voidP atIndex(Array arr, int index){
 			c++;
 		node = node->next;
 	}
+	return c;
+}
+
+voidP atIndex(Array arr, int index){
+	Array node = arr;
+	int i, c = getLength(arr);
+
 	if(index >= c){
 		printf("INDEX ERROR!\n");
 		return null;
 	}
 
-	node = arr;
 	for(i = 0; i < c; i++){
 		if(i == index){
 			if(node->arr)
@@ -89,19 +97,8 @@ voidP atIndex(Array arr, int index){
 
 void printAll(Array arr){
 	Array node = arr;
-	int i, c = 0;
+	int i, c = getLength(arr);
 
-	while(node != NULL){ // count up all the types
-		if(node->string)
-			c++;
-		if(node->num)
-			c++;
-		if(node->arr)
-			c++;
-		node = node->next;
-	}
-
-	node = arr;
 	printf("[");
 	for(i = 0; i < c; i++){
 		if(node->string)
@@ -120,16 +117,16 @@ void printAll(Array arr){
 }
 
 
-void printArray(Array arr){ // redefine it with an additional line
+void printArray(Array arr){ // redefine it with an additional line (on top of it)
 	printAll(arr);
 	printf("\n");
 }
 
 Array __removeArrays(Array arr, Array new){
 	Array node = arr;
-	if((!node->string) && (!node->num) && (!node->arr)){
+	if((!node->string) && (!node->num) && (!node->arr))
 		return new;
-	}
+
 	while(node != NULL){
 		if(node->string)
 			appendString(new, node->string);
