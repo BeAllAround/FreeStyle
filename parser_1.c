@@ -220,13 +220,15 @@ int main(void){
 	int* S1 = (int*)atIndex(arr1->next, 8);
 	char* S2 = (char*)atIndex(arr1->next, 12);
 
-	printf("%s\n", S2);
-	printf("%d\n", *S1);
+	printf("%s\n", S2); // "FINAL"
+	printf("%d\n", *S1); // 404
+	S2 = (char*)atIndex(arr1->next, 0);
+	printf("%s\n", S2); // "SUPER"
 
 	// other tryOuts;
-	printArray((Array)atIndex(arr, 3));
-	printArray((Array)atIndex(arr, 6));
-	printArray((Array)atIndex((Array)atIndex(arr, 3), 2));
+	printArray((Array)atIndex(arr, 3)); // ["SUPER!!!", "WHAT? ", [40000, 404, "LAST"], 404]
+	printArray((Array)atIndex(arr, 6)); // ["WHY SO?"]
+	printArray((Array)atIndex((Array)atIndex(arr, 3), 2)); // [40000, 404, "LAST"]
 	atIndex(arr1->next, 12);
 	atIndex(arr1->next, 11);
 	atIndex(arr1->next, 10);
