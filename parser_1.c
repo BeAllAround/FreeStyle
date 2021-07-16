@@ -232,10 +232,12 @@ int main(void){
 	printArray((Array)atIndex(arr, 3)); // ["SUPER!!!", "WHAT? ", [40000, 404, "LAST"], 404]
 	printArray((Array)atIndex(arr, 6)); // ["WHY SO?"]
 	printArray((Array)atIndex((Array)atIndex(arr, 3), 2)); // [40000, 404, "LAST"]
+	appendString((Array)atIndex((Array)atIndex(arr, 3), 2), "TRY!"); // [40000, 404, "LAST"]
 	atIndex(arr1->next, 12);
 	atIndex(arr1->next, 11);
 	atIndex(arr1->next, 10);
 	atIndex(arr1->next, 13); // "---Index ERROR" -> void*
+	printArray(arr);
 
 	return 0;
 }
