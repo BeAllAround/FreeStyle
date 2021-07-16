@@ -237,7 +237,7 @@ int main(void){
 	atIndex(arr1->next, 11);
 	atIndex(arr1->next, 10);
 	atIndex(arr1->next, 13); // "---Index ERROR" -> void*
-	printArray(arr);
+	printArray(arr); // ["SUPER", "_s_", 11, ["SUPER!!!", "WHAT? ", [40000, 404, "LAST", "TRY!"], 404], 10, 11, ["WHY SO?"], "FINAL"]
 
 	return 0;
 }
