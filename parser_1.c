@@ -15,6 +15,8 @@ struct Arr{
 
 typedef struct Arr* Array;
 typedef void* voidP;
+extern void printAll(Array);
+extern void printArray(Array);
 
 void appendString(Array arr, char* string){
 	Array last, node = arr;
@@ -170,6 +172,7 @@ void printAll(Array arr){
 	}
 	printf("]");
 }
+
 
 void printArray(Array arr){ // redefine it with an additional line
 	printAll(arr);
