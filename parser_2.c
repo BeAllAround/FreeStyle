@@ -58,10 +58,15 @@ int _validate(Array node, Array _node){
 
 int equals(Array arr, Array _arr){
 	Array node = arr, _node = _arr;
+	if(node == NULL && _node == NULL)
+		return 1;
+	if(node == NULL && _node != NULL)
+		return 0;
+	if(node != NULL && _node == NULL)
+		return 0;
 	while(node != NULL && _node != NULL){
 		if(!_validate(node, _node))
 			return 0;
-
 		if(node->string && _node->string){
 			if(!compareStr(node->string, _node->string))
 				return 0;
@@ -238,16 +243,19 @@ int main(void){
 	appendArray(arr1);
 	appendArray(arr2);
 	appendArray((Array)atIndex(arr2, 0));
+	appendArray((Array)atIndex(arr1, 0));
 
 	printf("EQUALS: %d\n", equals(arr, arr)); // 1
 	printf("EQUALS: %d\n", equals(arr, arr1)); // 0
 	printArray(arr1);
 	printArray(arr2);
-	printf("EQUALS: %d\n", equals(arr1, arr2)); // 0
+	printf("EQUALS: %d\n", equals(arr1, arr2)); // 1
 	appendArray((Array)atIndex(arr1, 0));
 	printArray(arr1);
 	printArray(arr2);
-	printf("EQUALS: %d\n", equals(arr1, arr2)); // 1
+	printf("EQUALS: %d\n", equals(arr1, arr2)); // 0
+	printf("EQUALS: %d\n", equals(arr1, NULL)); // 0
+	printf("EQUALS: %d\n", equals(NULL, NULL)); // 1
 
 	return 0;
 }
