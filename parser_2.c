@@ -1,7 +1,22 @@
-#include<stdlib.h>
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
 
 #define null NULL
+
+int compareStr(char* str, char* rst)
+{
+	int i;
+	if(strlen(str) != strlen(rst))
+		return 0;
+	for(i = 0; i < strlen(str); i++){
+		if(str[i] != rst[i])
+			return 0;
+	}
+	return 1;
+}
+
 
 struct Arr{
 	int* num;
@@ -18,6 +33,55 @@ typedef void* voidP;
 extern void printAll(Array);
 extern void printArray(Array);
 extern int getLength(Array);
+extern int equals(Array, Array);
+extern int _validate(Array, Array);
+extern int __validate(Array, Array);
+extern int ___validate(Array, Array);
+
+int _validate(Array node, Array _node){
+	// two-way validation
+	
+	if(node->string == NULL && _node->string != NULL)
+		return 0;
+	if(node->string != NULL && _node->string == NULL)
+		return 0;
+	if(node->num == NULL && _node->num != NULL)
+		return 0;
+	if(node->num != NULL && _node->num == NULL)
+		return 0;
+	if(node->arr == NULL && _node->arr != NULL)
+		return 0;
+	if(node->arr != NULL && _node->arr == NULL)
+		return 0;
+	return 1;
+}
+
+int equals(Array arr, Array _arr){
+	Array node = arr, _node = _arr;
+	while(node != NULL && _node != NULL){
+		if(!_validate(node, _node))
+			return 0;
+
+		if(node->string && _node->string){
+			if(!compareStr(node->string, _node->string))
+				return 0;
+		}
+
+		if(node->num && _node->num){
+			if(((int)*node->num) != ((int)*_node->num))
+				return 0;
+		}
+
+		if(node->arr && _node->arr){
+			if(!equals(node->arr, _node->arr))
+				return 0;
+		}
+
+		node = node->next;
+		_node = _node->next;
+	}
+	return 1;
+}
 
 void appendString(Array arr, char* string){
 	Array last, node = arr;
@@ -147,6 +211,8 @@ Array removeArrays(Array arr){
 int main(void){
 	int value = 40, value1= 30;
 	Array arr = (Array)malloc(sizeof(struct Arr));
+	Array arr1 = (Array)malloc(sizeof(struct Arr));
+	Array arr2 = (Array)malloc(sizeof(struct Arr));
 	appendString(arr, "#UP");
 	appendString(arr, "#UP2");
 	appendInt(arr, &value);
@@ -166,6 +232,22 @@ int main(void){
 
 	printf("%s\n", S1); // "###WOW!"
 	printf("%d\n", S2); // 40
+
+	appendArray(arr1);
+	appendArray(arr2);
+	appendArray(arr1);
+	appendArray(arr2);
+	appendArray((Array)atIndex(arr2, 0));
+
+	printf("EQUALS: %d\n", equals(arr, arr)); // 1
+	printf("EQUALS: %d\n", equals(arr, arr1)); // 0
+	printArray(arr1);
+	printArray(arr2);
+	printf("EQUALS: %d\n", equals(arr1, arr2)); // 0
+	appendArray((Array)atIndex(arr1, 0));
+	printArray(arr1);
+	printArray(arr2);
+	printf("EQUALS: %d\n", equals(arr1, arr2)); // 1
 
 	return 0;
 }
