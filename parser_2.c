@@ -414,7 +414,7 @@ int main(void){
 	Array a1 = newArray();
 	print(a1); // [None]
 
-	// ECHANCED LIBRARY IMPLEMENTATION -> NOW AVAILABLE in C!!!
+	// ENHANCED LIBRARY IMPLEMENTATION -> NOW AVAILABLE in C!!!
 	printArray(split(" WHAT's next  for me ", " ")); // ["", "WHAT's", "next", "", "for", "me", ""]
 
 	printArray(split(" WHAT's next  for me ", ""));
