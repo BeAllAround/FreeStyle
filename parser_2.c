@@ -30,6 +30,8 @@ struct Arr{
 typedef struct Arr* Array;
 typedef void* voidP;
 
+extern void newLine(void);
+extern void print(Array);
 extern void printAll(Array);
 extern void printArray(Array);
 extern int getLength(Array);
@@ -169,6 +171,28 @@ voidP atIndex(Array arr, int index){
 	return null;
 }
 
+Array atIndexPoint(Array arr, int index){
+	Array node = arr;
+	int i, c = getLength(arr);
+
+	if(index >= c){
+		printf("INDEX ERROR!\n");
+		return null;
+	}
+	for(i = 0; i < c; i++){
+		if(i == index){
+			if(node->arr || node->string || node->num)
+				return node;
+		}
+		node = node->next;
+	}
+	return null;
+}
+
+void newLine(void){
+	printf("\n");
+}
+
 void printAll(Array arr){
 	Array node = arr;
 	int i, c = getLength(arr);
@@ -193,7 +217,7 @@ void printAll(Array arr){
 
 void printArray(Array arr){ // redefine it with an additional line (on top of it)
 	printAll(arr);
-	printf("\n");
+	newLine();
 }
 
 Array __removeArrays(Array arr, Array _new){
@@ -216,6 +240,27 @@ Array __removeArrays(Array arr, Array _new){
 
 Array removeArrays(Array arr){
 	return __removeArrays(arr, newArray());
+}
+
+void print(Array item){
+	if(!item->string && !item->num && !item->arr){
+		printf("[None]");
+		newLine();
+		return;
+	}
+	if(item->string){
+		printf("%s", item->string);
+		newLine();
+		return;
+	}
+	if(item->num){
+		printf("%d", *item->num);
+		newLine();
+		return;
+	}
+	if(item->arr)
+		printArray(item->arr);
+	return;
 }
 
 int main(void){
@@ -269,6 +314,28 @@ int main(void){
 	appendString(new_1, "SAP");
 	appendString(new_2, "PEST");
 	printf("EQUALS: %d\n", equals(new_1, new_2)); // 0
+
+	printf("----------------------------------------\n");
+	appendString(arr1, "WHAT?");
+	appendString(arr1, "WHATNOT");
+	appendInt((Array)atIndex(arr1, 1), &S2);
+	appendInt(arr1, &S2);
+	printArray(arr1);
+	int i;
+	for(i = 0; i < getLength(arr1); i++){
+		print(atIndexPoint(arr1, i));
+	}
+	/*
+		 * [[[], []], [40], "WHAT?", "WHATNOT", 40]
+		 * [[], []]
+		 * [40]
+       	  	 * WHAT?
+    	         * WHATNOT
+        	 * 40
+	 */
+
+	Array a1 = newArray();
+	print(a1); // [None]
 
 	return 0;
 }
