@@ -38,6 +38,11 @@ extern int _validate(Array, Array);
 extern int __validate(Array, Array);
 extern int ___validate(Array, Array);
 
+Array newArray(void){
+	return (Array)malloc(sizeof(struct Arr));
+}
+
+
 int _validate(Array node, Array _node){
 	// two-way validation
 	
@@ -99,7 +104,7 @@ void appendString(Array arr, char* string){
 	}
 	// last->arr = (Array)malloc(sizeof(struct Arr));
 	last->string = string;
-	last->next = (Array)malloc(sizeof(struct Arr));
+	last->next = newArray();
 }
 
 void appendInt(Array arr, int* num){
@@ -111,7 +116,7 @@ void appendInt(Array arr, int* num){
                 node = node->next;
         }
         last->num = num;
-        last->next = (Array)malloc(sizeof(struct Arr));
+        last->next = newArray();
 }
 
 void appendArray(Array arr){
@@ -122,8 +127,8 @@ void appendArray(Array arr){
 		}
 		node = node->next;
 	}
-	last->arr = (Array)malloc(sizeof(struct Arr));
-        last->next = (Array)malloc(sizeof(struct Arr));
+	last->arr = newArray();
+        last->next = newArray();
 }
 
 int getLength(Array arr){
@@ -191,33 +196,34 @@ void printArray(Array arr){ // redefine it with an additional line (on top of it
 	printf("\n");
 }
 
-Array __removeArrays(Array arr, Array new){
+Array __removeArrays(Array arr, Array _new){
 	Array node = arr;
 	if((!node->string) && (!node->num) && (!node->arr))
-		return new;
+		return _new;
 
 	while(node != NULL){
 		if(node->string)
-			appendString(new, node->string);
+			appendString(_new, node->string);
 		if(node->num)
-			appendInt(new, node->num);
+			appendInt(_new, node->num);
 		if(node->arr)
-			new = __removeArrays(node->arr, new);
+			_new = __removeArrays(node->arr, _new);
 
 		node = node->next;
 	}
-	return new;
+	return _new;
 }
 
 Array removeArrays(Array arr){
-	return __removeArrays(arr, (Array)malloc(sizeof(struct Arr)));
+	return __removeArrays(arr, newArray());
 }
 
 int main(void){
 	int value = 40, value1= 30;
-	Array arr = (Array)malloc(sizeof(struct Arr));
-	Array arr1 = (Array)malloc(sizeof(struct Arr));
-	Array arr2 = (Array)malloc(sizeof(struct Arr));
+	Array arr = newArray();
+	Array arr1 = newArray();
+	Array arr2 = newArray();
+
 	appendString(arr, "#UP");
 	appendString(arr, "#UP2");
 	appendInt(arr, &value);
@@ -256,6 +262,13 @@ int main(void){
 	printf("EQUALS: %d\n", equals(arr1, arr2)); // 0
 	printf("EQUALS: %d\n", equals(arr1, NULL)); // 0
 	printf("EQUALS: %d\n", equals(NULL, NULL)); // 1
+
+	Array new_1 = newArray();
+	Array new_2 = newArray();
+
+	appendString(new_1, "SAP");
+	appendString(new_2, "PEST");
+	printf("EQUALS: %d\n", equals(new_1, new_2)); // 0
 
 	return 0;
 }
