@@ -311,9 +311,15 @@ int match(char* set, char* subset, int start){
 };
 
 Array split(char* string, char* gutter){
-	char* stringSwap;
-	stringSwap = injectString(string, gutter);
 	Array arr = newArray();
+	char* stringSwap;
+
+	if(match(string, gutter, 0) == -1){
+		appendString(arr, string);
+		return arr;
+	}
+
+	stringSwap = injectString(string, gutter);
 	char* empty = (char*)malloc(10000);
 	int emptyLength = 0;
 	int i, _gutter = strlen(gutter);
@@ -420,7 +426,7 @@ int main(void){
 	printArray(split(" WHAT's next  for me ", ""));
 	// [" ", "W", "H", "A", "T", "'", "s", " ", "n", "e", "x", "t", " ", " ", "f", "o", "r", " ", "m", "e", " "]
 	
-	printArray(split(" WHAT's next  for me ", "   ")); // [" WHAT's next  for me"]
+	printArray(split(" WHAT's next  for me ", "   ")); // [" WHAT's next  for me "]
 
 	return 0;
 }
