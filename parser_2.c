@@ -35,10 +35,18 @@ extern void print(Array);
 extern void printAll(Array);
 extern void printArray(Array);
 extern int getLength(Array);
+extern char* charToString(char);
 extern int equals(Array, Array);
 extern int _validate(Array, Array);
 extern int __validate(Array, Array);
 extern int ___validate(Array, Array);
+
+char* charToString(char c){
+	char* string = (char*)malloc(2);
+	string[0] = c;
+	string[1] = 0;
+	return string;
+}
 
 Array newArray(void){
 	return (Array)malloc(sizeof(struct Arr));
@@ -263,6 +271,75 @@ void print(Array item){
 	return;
 }
 
+int _trim(char* _string, char* _match, int back, int forward)
+{
+	char* s = (char*)malloc(10000); // set the indefinite value
+	int i, c = 0;
+
+	if(back > strlen(_string) || (back+forward) > strlen(_string))
+		return 0;
+
+	for(i = back; i < back+forward; i++){
+		s[c++] = _string[i];
+	};
+	s[c++] = 0;
+	return compareStr(s, _match);
+}
+
+char* injectString(char* string, char* append){
+	char* newBorn = (char*)malloc(strlen(string) + strlen(append) + 1); // HAHA
+	int size = 0;
+	int i;
+	for(i = 0; i < strlen(string); i++){
+		newBorn[size++] = string[i];
+	}
+	for(i = 0; i < strlen(append); i++){
+		newBorn[size++] = append[i];
+	}
+	newBorn[size++] = 0;
+
+	return newBorn;
+}
+
+int match(char* set, char* subset, int start){
+	int i;
+        for(i = start; i < strlen(set); i++){
+                if(_trim(set, subset, i, strlen(subset)))
+			return i;
+        }
+        return -1;
+};
+
+Array split(char* string, char* gutter){
+	char* stringSwap;
+	stringSwap = injectString(string, gutter);
+	Array arr = newArray();
+	char* empty = (char*)malloc(10000);
+	int emptyLength = 0;
+	int i, _gutter = strlen(gutter);
+
+	if(gutter == ""){
+		for(i = 0; i < strlen(stringSwap); i++){
+			appendString(arr, charToString(stringSwap[i]));
+		}
+		return arr;
+	}
+
+	for(i = 0; i < strlen(stringSwap); i++){
+		if(_trim(stringSwap, gutter, i, _gutter)){
+			i += _gutter - 1;
+			appendString(arr, empty);
+
+			// clear up
+			empty = (char*)malloc(10000);
+			emptyLength = 0;
+			continue;
+		}
+		empty[emptyLength++] = stringSwap[i];
+	}
+	return arr;
+}
+
 int main(void){
 	int value = 40, value1= 30;
 	Array arr = newArray();
@@ -336,6 +413,14 @@ int main(void){
 
 	Array a1 = newArray();
 	print(a1); // [None]
+
+	// ECHANCED LIBRARY IMPLEMENTATION -> NOW AVAILABLE in C!!!
+	printArray(split(" WHAT's next  for me ", " ")); // ["", "WHAT's", "next", "", "for", "me", ""]
+
+	printArray(split(" WHAT's next  for me ", ""));
+	// [" ", "W", "H", "A", "T", "'", "s", " ", "n", "e", "x", "t", " ", " ", "f", "o", "r", " ", "m", "e", " "]
+	
+	printArray(split(" WHAT's next  for me ", "   ")); // [" WHAT's next  for me"]
 
 	return 0;
 }
