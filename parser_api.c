@@ -18,7 +18,7 @@ int compareStr(char* str, char* rst)
 }
 
 
-struct Arr{ // 0 -> int; 1 -> string; 2 -> array
+struct Arr{ // 0 -> int; 1 -> string; 2 -> array (WARNING: STILL UNSAFE!)
 	int* num;
 	char* string;
 	int id; // make sure you identify the initializer(s) first
@@ -72,6 +72,7 @@ Array newString(char* str){
 	d->id = 1;
 	return d;
 }
+
 Array newInt(int* num){
 	Array d = (Array)malloc(sizeof(struct Arr));
 	d->num = num;
@@ -237,16 +238,34 @@ Array atIndexPoint(Array arr, int index){
 	}
 	for(i = 0; i < c; i++){
 		if(i == index){
-			if(node->arr)
-				return node;
-			if(node->string)
-				return node;
-			if(node->num)
+			if(node->arr || node->string || node->num)
 				return node;
 		}
 		node = node->next;
 	}
 	return null;
+}
+
+Array __atIndex(Array arr, int index){
+	Array node = arr;
+        int i, c = getLength(arr);
+
+        if(index >= c){
+                printf("INDEX ERROR!\n");
+                return null;
+        }
+        for(i = 0; i < c; i++){
+                if(i == index){
+                        if(node->arr)
+                                return node->arr;
+                        if(node->string)
+                                return node;
+                        if(node->num)
+                                return node;
+                }
+                node = node->next;
+        }
+        return null;
 }
 
 void newLine(void){
@@ -302,10 +321,19 @@ Array removeArrays(Array arr){
 	return __removeArrays(arr, newArray());
 }
 
+int isArray(Array arr){
+	if(!arr->next)
+		return 0;
+	return 1;
+}
 void print(Array item){
 	if(!item->string && !item->num && !item->arr){
 		printf("[None]");
 		newLine();
+		return;
+	}
+	if(item->arr){
+		printArray(item->arr);
 		return;
 	}
 	if(item->string){
@@ -318,9 +346,6 @@ void print(Array item){
 		newLine();
 		return;
 	}
-	if(item->arr)
-		printArray(item->arr);
-	return;
 }
 
 int _trim(char* _string, char* _match, int back, int forward)
@@ -368,6 +393,7 @@ Array split(char* string, char* gutter){
 
 	if(match(string, gutter, 0) == -1){
 		append(arr, newString(string));
+		printf("ID: %d\n", newString(string)->id);
 		return arr;
 	}
 
@@ -401,7 +427,7 @@ Array split(char* string, char* gutter){
 int includes(Array arr, Array item){
 	int i;
 	for(i = 0; i < getLength(arr); i++){
-		if(equals(atIndexPoint(arr, i), item))
+		if(equals(__atIndex(arr, i), item))
 			return i;
 	}
 	return -1;
@@ -414,9 +440,12 @@ int removeObject(Array* arr, Array search){ // need to use a pointer here as [Ar
 
 	if(includes(_arr, search) != -1){
 		for(i = 0; i < getLength(_arr); i++){
-			item = atIndexPoint(_arr, i);
+			item = __atIndex(*arr, i);
 			if(equals(item, search)){
 				node = item->next;
+				while(node->arr){
+					node = node->next;
+				}
 				break;
 			}else{
 				if(item->string)
@@ -435,6 +464,7 @@ int removeObject(Array* arr, Array search){ // need to use a pointer here as [Ar
 				appendString(copy, node->string);
 			if(node->num)
 				appendInt(copy, node->num);
+
 			node = node->next;
 		}
 		*arr = copy;
@@ -473,7 +503,7 @@ int main(void){
 	appendArray(arr2);
 	appendArray(arr1);
 	appendArray(arr2);
-	append(atIndex(arr2, 0), newArray());
+	append((Array)atIndex(arr2, 0), newArray());
 	append((Array)atIndex(arr1, 0), newArray());
 
 	printf("EQUALS: %d\n", equals(arr, arr)); // 1
@@ -525,24 +555,28 @@ int main(void){
 	
 	printArray(split(" WHAT's next  for me ", "   ")); // [" WHAT's next  for me "]
 	Array _s = (split(" WHAT's next  for me ", " ")); // ["", "WHAT's", "next", "", "for", "me", ""]
-
+	printf("\nBEFORE DEBUG\n");
+	printArray(_s);
 	
 	printf("----------------------------------------\n");
 	Array R = newArray();
 	append(R, newInt(&S2));
+	append(R, newArray());
 	printArray(R);
 
-	Array __string = newArray();
-	__string->string = """";
-	while(removeObject(&_s, __string));
+	while(removeObject(&_s, newString("")));
 
 	append(_s, newString("."));
 	append(_s, newArray());
 
-	append((Array)atIndex(_s, 5), newInt(&S2));
+	append((Array)atIndex(_s, getLength(_s)-1), newInt(&S2));
+	append((Array)atIndex(_s, getLength(_s)-1), newArray());
+	printArray(_s);
+
+	removeObject(&_s, R);
 	removeObject(&_s, newString("next"));
 
-	printArray(_s); // ["WHAT's", "for", "me", ".", [40]]
+	printArray(_s); // ["WHAT's", "for", "me", "."]
 
 	return 0;
 }
