@@ -438,6 +438,13 @@ int includes(Array arr, Array item){
 	return -1;
 }
 
+void __append(Array arr, Array obj){ // auxiliary to [append]
+	if(obj->string || obj->num)
+		append(arr, obj);
+	if(obj->arr)
+		append_array(arr, obj->arr);
+}
+
 int removeObject(Array* arr, Array search){ // need to use a pointer here as [Array] is a type now
 	int i;
 	Array _arr = *arr, copy = newArray();
@@ -451,23 +458,12 @@ int removeObject(Array* arr, Array search){ // need to use a pointer here as [Ar
 					node = node->next;
 				}
 				break;
-			}else{ // looking to finally implement [append]
-				if(item->string)
-					appendString(copy, item->string);
-				if(item->num)
-					appendInt(copy, item->num);
-				if(item->arr)
-					append_array(copy, item->arr);
-			}
+			}else // looking to finally implement [append]
+				__append(copy, item);
 		}
 
 		while(node != NULL){
-			if(node->string)
-				appendString(copy, node->string);
-			if(node->num)
-				appendInt(copy, node->num);
-			if(node->arr)
-				append_array(copy, node->arr);
+			__append(copy, node);
 			node = node->next;
 		}
 		*arr = copy;
