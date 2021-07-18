@@ -261,11 +261,11 @@ Array __atIndex(Array arr, int index){
         }
         for(i = 0; i < c; i++){
                 if(i == index){
-                        if(node->arr)
-                                return node->arr;
-                        if(node->string)
+                        if(node->id == 2)
                                 return node;
-                        if(node->num)
+                        if(node->id == 1)
+                                return node;
+                        if(node->id == 3)
                                 return node;
                 }
                 node = node->next;
@@ -431,35 +431,64 @@ Array split(char* string, char* gutter){
 
 int includes(Array arr, Array item){
 	int i;
+	Array node = arr;
+	/*
 	for(i = 0; i < getLength(arr); i++){
 		if(equals(__atIndex(arr, i), item))
 			return i;
 	}
-	return -1;
+	*/
+	while(node != NULL){
+		if(node->id==2)
+			if(equals(node->arr, item))
+				return 1;
+		if(equals(node, item))
+			return 1;
+		node = node->next;
+	}
+	return 0;
 }
 
 void __append(Array arr, Array obj){ // auxiliary to [append]
-	if(obj->string || obj->num)
+	if(obj->id==1 || obj->id==3){
 		append(arr, obj);
-	if(obj->arr)
-		append_array(arr, obj->arr);
+		return;
+	}
+
+	if(obj->id==2){
+		if(getLength(obj)==0){
+			append_array(arr, obj);
+		}else{
+			append_array(arr, obj->arr);
+		}
+	}
+	
+}
+
+int A_Validate(Array arr){
+	return arr->arr == NULL;
+}
+
+int __equals(Array node1, Array node2){
+	if(node1->arr)
+		return equals(node1->arr, node2);
+	return equals(node1, node2);
 }
 
 int removeObject(Array* arr, Array search){ // need to use a pointer here as [Array] is a type now
 	int i;
 	Array _arr = *arr, copy = newArray();
 	Array item, node; // variables for rent XD
+	Array _node = *arr;
 
-	if(includes(_arr, search) != -1){
-		for(i = 0; i < getLength(_arr); i++){
-			if(equals((item = __atIndex(*arr, i)), search)){
-				node = item->next;
-				while(node->id==2){ // while(node->arr){ ... }
-					node = node->next;
-				}
+	if(includes(_node, search)){
+		while(_node != NULL){
+			if(__equals(_node, search)){
+				node = _node->next;
 				break;
 			}else // looking to finally implement [append]
-				__append(copy, item);
+				__append(copy, _node);
+			_node = _node->next;
 		}
 
 		while(node != NULL){
@@ -578,6 +607,20 @@ int main(void){
 	if(removeObject(&_s, R)){
 		printArray(_s); // ["WHAT's", "for", "me", "."]
 	}
+
+	R = newArray();
+	append(R, newString("CLIMB"));
+	append(R, newString("@CLIMB"));
+	append(R, newArray());
+	append(R, newArray());
+	append((Array)atIndex(R, 2), newString("HA!"));
+	printArray(R);
+
+	Array __R = newArray();
+	append(__R, newString("HA!"));
+	if(removeObject(&R, __R))
+		printArray(R);
+
 
 	return 0;
 }
