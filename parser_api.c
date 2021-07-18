@@ -76,18 +76,20 @@ Array newString(char* str){
 Array newInt(int* num){
 	Array d = (Array)malloc(sizeof(struct Arr));
 	d->num = num;
-	d->id = 0;
+	d->id = 3;
 	return d;
 }
 
 void append(Array arr, Array item){
-	if(item->id == 0)
+	if(item->id == 3){
 		appendInt(arr, item->num);
-	if(item->id == 1)
+	}
+	if(item->id == 1){
 		appendString(arr, item->string);
-	if(item->id == 2)
+	}
+	if(item->id == 2){
 		append_array(arr, item); // BRP 
-	return;
+	}
 };
 
 int _validate(Array node, Array _node){
@@ -149,9 +151,9 @@ void appendString(Array arr, char* string){
 		}
 		node = node->next;
 	}
-	// last->arr = (Array)malloc(sizeof(struct Arr));
+	last->id = 1;
 	last->string = string;
-	last->next = newArray();
+	last->next = (Array)malloc(sizeof(struct Arr));
 }
 
 void appendInt(Array arr, int* num){
@@ -162,8 +164,9 @@ void appendInt(Array arr, int* num){
                 }
                 node = node->next;
         }
+	last->id = 3;
         last->num = num;
-        last->next = newArray();
+	last->next = (Array)malloc(sizeof(struct Arr));
 }
 
 void appendArray(Array arr){
@@ -174,8 +177,9 @@ void appendArray(Array arr){
 		}
 		node = node->next;
 	}
+	last->id = 2;
 	last->arr = newArray();
-        last->next = newArray();
+	last->next = (Array)malloc(sizeof(struct Arr));
 }
 
 void append_array(Array arr, Array _new){
@@ -186,8 +190,9 @@ void append_array(Array arr, Array _new){
 		}
 		node = node->next;
 	}
+	last->id = 2;
 	last->arr = _new;
-	last->next = newArray();
+	last->next = (Array)malloc(sizeof(struct Arr));
 }
 
 int getLength(Array arr){
@@ -327,7 +332,7 @@ int isArray(Array arr){
 	return 1;
 }
 void print(Array item){
-	if(!item->string && !item->num && !item->arr){
+	if(!item->string && !item->num && !item->arr && !item->next){
 		printf("[None]");
 		newLine();
 		return;
@@ -440,14 +445,13 @@ int removeObject(Array* arr, Array search){ // need to use a pointer here as [Ar
 
 	if(includes(_arr, search) != -1){
 		for(i = 0; i < getLength(_arr); i++){
-			item = __atIndex(*arr, i);
-			if(equals(item, search)){
+			if(equals((item = __atIndex(*arr, i)), search)){
 				node = item->next;
-				while(node->arr){
+				while(node->id==2){ // while(node->arr){ ... }
 					node = node->next;
 				}
 				break;
-			}else{
+			}else{ // looking to finally implement [append]
 				if(item->string)
 					appendString(copy, item->string);
 				if(item->num)
@@ -458,13 +462,12 @@ int removeObject(Array* arr, Array search){ // need to use a pointer here as [Ar
 		}
 
 		while(node != NULL){
-			if(node->arr)
-				append_array(copy, node->arr);
 			if(node->string)
 				appendString(copy, node->string);
 			if(node->num)
 				appendInt(copy, node->num);
-
+			if(node->arr)
+				append_array(copy, node->arr);
 			node = node->next;
 		}
 		*arr = copy;
@@ -526,14 +529,15 @@ int main(void){
 	printf("EQUALS: %d\n", equals(new_1, new_2)); // 0
 
 	printf("----------------------------------------\n");
-	appendString(arr1, "WHAT?");
-	appendString(arr1, "WHATNOT");
-	appendInt((Array)atIndex(arr1, 1), &S2);
-	appendInt(arr1, &S2);
+	append(arr1, newString("WHAT?"));
+	append(arr1, newString("WHATNOT"));
+	append((Array)atIndex(arr1, 1), newInt(&S2));
+	append(arr1, newInt(&S2));
 	printArray(arr1);
 	int i;
 	for(i = 0; i < getLength(arr1); i++){
 		print(atIndexPoint(arr1, i));
+		printf("ID: %d\n", atIndexPoint(arr1, i)->id);
 	}
 	/*
 		 * [[[], []], [40], "WHAT?", "WHATNOT", 40]
@@ -573,10 +577,11 @@ int main(void){
 	append((Array)atIndex(_s, getLength(_s)-1), newArray());
 	printArray(_s);
 
-	removeObject(&_s, R);
 	removeObject(&_s, newString("next"));
 
-	printArray(_s); // ["WHAT's", "for", "me", "."]
+	if(removeObject(&_s, R)){
+		printArray(_s); // ["WHAT's", "for", "me", "."]
+	}
 
 	return 0;
 }
