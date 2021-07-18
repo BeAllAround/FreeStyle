@@ -37,6 +37,7 @@ extern void printArray(Array);
 extern int getLength(Array);
 extern char* charToString(char);
 extern int equals(Array, Array);
+extern int includes(Array, Array);
 extern int _validate(Array, Array);
 extern int __validate(Array, Array);
 extern int ___validate(Array, Array);
@@ -139,6 +140,18 @@ void appendArray(Array arr){
 	}
 	last->arr = newArray();
         last->next = newArray();
+}
+
+void append_array(Array arr, Array _new){
+	Array last, node = arr;
+	while(node != NULL){
+		if(!node->next){
+			last = node;
+		}
+		node = node->next;
+	}
+	last->arr = _new;
+	last->next = newArray();
 }
 
 int getLength(Array arr){
@@ -346,6 +359,51 @@ Array split(char* string, char* gutter){
 	return arr;
 }
 
+int includes(Array arr, Array item){
+	int i;
+	for(i = 0; i < getLength(arr); i++){
+		if(equals(atIndexPoint(arr, i), item))
+			return i;
+	}
+	return -1;
+}
+
+int removeObject(Array* arr, Array search){ // need to use a pointer here as [Array] is a type now
+	int i;
+	Array _arr = *arr, copy = newArray();
+	Array item, node; // variables for rent XD
+
+	if(includes(_arr, search) != -1){
+		for(i = 0; i < getLength(_arr); i++){
+			item = atIndexPoint(_arr, i);
+			if(equals(item, search)){
+				node = item->next;
+				break;
+			}else{
+				if(item->string)
+					appendString(copy, item->string);
+				if(item->num)
+					appendInt(copy, item->num);
+				if(item->arr)
+					append_array(copy, item->arr);
+			}
+		}
+
+		while(node != NULL){
+			if(node->arr)
+				append_array(copy, node->arr);
+			if(node->string)
+				appendString(copy, node->string);
+			if(node->num)
+				appendInt(copy, node->num);
+			node = node->next;
+		}
+		*arr = copy;
+		return 1;
+	}
+	return 0;
+}
+
 int main(void){
 	int value = 40, value1= 30;
 	Array arr = newArray();
@@ -427,6 +485,14 @@ int main(void){
 	// [" ", "W", "H", "A", "T", "'", "s", " ", "n", "e", "x", "t", " ", " ", "f", "o", "r", " ", "m", "e", " "]
 	
 	printArray(split(" WHAT's next  for me ", "   ")); // [" WHAT's next  for me "]
+	Array _s = (split(" WHAT's next  for me ", " ")); // ["", "WHAT's", "next", "", "for", "me", ""]
+
+	
+	printf("----------------------------------------\n");
+	Array __string = newArray();
+	__string->string = """";
+	while(removeObject(&_s, __string));
+	printArray(_s); // ["WHAT's", "next", "for", "me"]
 
 	return 0;
 }
