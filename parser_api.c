@@ -470,7 +470,7 @@ int A_Validate(Array arr){
 }
 
 int __equals(Array node1, Array node2){
-	if(node1->arr)
+	if(node1->id == 2)
 		return equals(node1->arr, node2);
 	return equals(node1, node2);
 }
@@ -619,6 +619,10 @@ int main(void){
 	Array __R = newArray();
 	append(__R, newString("HA!"));
 	if(removeObject(&R, __R))
+		printArray(R);
+	if(removeObject(&R, newString("CLIMB")))
+		printArray(R);
+	if(removeObject(&R, newString("@CLIMB")))
 		printArray(R);
 
 
