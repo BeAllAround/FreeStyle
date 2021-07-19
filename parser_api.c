@@ -4,6 +4,7 @@
 #include <string.h>
 
 #define null NULL
+#define RETURN return
 // compatible with gcc and clang
 //
 
@@ -31,6 +32,7 @@ struct Arr{ // 0 -> int; 1 -> string; 2 -> array (WARNING: STILL UNSAFE!)
 
 typedef struct Arr* Array;
 typedef void* voidP;
+typedef Array(*__CALL)(Array, Array, int);
 
 // constructor
 extern Array newArray(void);
@@ -56,6 +58,19 @@ extern int _validate(Array, Array);
 extern int __validate(Array, Array);
 extern int ___validate(Array, Array);
 extern int __equals(Array, Array);
+
+Array reduce(Array arr, __CALL callback){
+	Array copy = newArray(), call, node = arr;
+	int c = 0;
+	while(node != NULL){
+		if(!(!node->arr && !node->string && !node->num && !node->next))
+			if(call = callback(arr, node, c))
+				append(copy, call);
+		node = node->next;
+		c++;
+	}
+	return copy;
+}
 
 char* charToString(char c){
 	char* string = (char*)malloc(2);
@@ -237,7 +252,8 @@ voidP atIndex(Array arr, int index){
 	return null;
 }
 
-Array atIndexPoint(Array arr, int index){
+Array atIndexPoint(Array arr, int index)
+{
 	Array node = arr;
 	int i, c = getLength(arr);
 
@@ -255,7 +271,8 @@ Array atIndexPoint(Array arr, int index){
 	return null;
 }
 
-Array __atIndex(Array arr, int index){
+Array __atIndex(Array arr, int index)
+{
 	Array node = arr;
         int i, c = getLength(arr);
 
@@ -277,11 +294,13 @@ Array __atIndex(Array arr, int index){
         return null;
 }
 
-void newLine(void){
+void newLine(void)
+{
 	printf("\n");
 }
 
-void printAll(Array arr){
+void printAll(Array arr)
+{
 	Array node = arr;
 	int i, c = getLength(arr);
 
@@ -303,12 +322,14 @@ void printAll(Array arr){
 }
 
 
-void printArray(Array arr){ // redefine it with an additional line (on top of it)
+void printArray(Array arr)
+{ // redefine it with an additional line (on top of it)
 	printAll(arr);
 	newLine();
 }
 
-Array __removeArrays(Array arr, Array _new){
+Array __removeArrays(Array arr, Array _new)
+{
 	Array node = arr;
 	if((!node->string) && (!node->num) && (!node->arr))
 		return _new;
@@ -326,16 +347,20 @@ Array __removeArrays(Array arr, Array _new){
 	return _new;
 }
 
-Array removeArrays(Array arr){
+Array removeArrays(Array arr)
+{
 	return __removeArrays(arr, newArray());
 }
 
-int isArray(Array arr){
+int isArray(Array arr)
+{
 	if(!arr->next)
 		return 0;
 	return 1;
 }
-void print(Array item){
+
+void print(Array item)
+{
 	if(!item->string && !item->num && !item->arr && !item->next){
 		printf("[None]");
 		newLine();
@@ -407,6 +432,7 @@ Array split(char* string, char* gutter){
 	}
 
 	stringSwap = injectString(string, gutter);
+
 	char* empty = (char*)malloc(10000);
 	int emptyLength = 0;
 	int i, _gutter = strlen(gutter);
@@ -436,12 +462,6 @@ Array split(char* string, char* gutter){
 int includes(Array arr, Array item){
 	int i;
 	Array node = arr;
-	/*
-	for(i = 0; i < getLength(arr); i++){
-		if(equals(__atIndex(arr, i), item))
-			return i;
-	}
-	*/
 	while(node != NULL){
 		if(__equals(node, item))
 			return 1;
@@ -462,6 +482,7 @@ void __append(Array arr, Array obj){ // auxiliary to [append]
 		}else{
 			append_array(arr, obj->arr);
 		}
+		RETURN;
 	}
 	
 }
@@ -501,6 +522,14 @@ int removeObject(Array* arr, Array search){ // need to use a pointer here as [Ar
 	}
 	return 0;
 }
+
+Array callback1(Array arr, Array item, int index){
+	if(item->string)
+		if(!compareStr(item->string, " "))
+			return item;
+	return null;
+}
+
 
 int main(void){
 	int value = 40, value1= 30;
@@ -578,6 +607,7 @@ int main(void){
 	print(a1); // [None]
 
 	// ENHANCED LIBRARY IMPLEMENTATION -> NOW AVAILABLE in C!!!
+	
 	printArray(split(" WHAT's next  for me ", " ")); // ["", "WHAT's", "next", "", "for", "me", ""]
 
 	printArray(split(" WHAT's next  for me ", ""));
@@ -620,9 +650,11 @@ int main(void){
 	append((Array)atIndex((Array)atIndex(R, 3), 0), newArray());
 	append(_var = (Array)atIndex((Array)atIndex(R, 3), 0), newString("mE"));
 	printArray(R);
+	
 
 	Array __R = newArray();
 	append(__R, newString("HA!"));
+
 	if(removeObject(&R, __R))
 		printArray(R);
 	if(removeObject(&R, newString("CLIMB")))
@@ -632,8 +664,14 @@ int main(void){
 	
 	Array __var = newArray();
 	append(__var, _var);
+
 	if(removeObject(&R,__var))
 		printArray(R); // []
+
+	Array next = split("WHAT's  THAT?", "");
+	printArray(next);
+	next = reduce(next, callback1);
+	printArray(next);
 
 	return 0;
 }
