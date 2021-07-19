@@ -59,6 +59,24 @@ extern int __validate(Array, Array);
 extern int ___validate(Array, Array);
 extern int __equals(Array, Array);
 
+extern int isArray(Array);
+extern int isString(Array);
+extern int isNum(Array);
+
+extern char* getCStr(Array);
+
+int isArray(Array arr){
+	return arr->id == 2;
+}
+
+int isString(Array obj){
+	return obj->id == 1;
+}
+
+int isNum(Array obj){
+	return obj->id == 3;
+}
+
 Array reduce(Array arr, __CALL callback){
 	Array copy = newArray(), call, node = arr;
 	int c = 0;
@@ -352,13 +370,6 @@ Array removeArrays(Array arr)
 	return __removeArrays(arr, newArray());
 }
 
-int isArray(Array arr)
-{
-	if(!arr->next)
-		return 0;
-	return 1;
-}
-
 void print(Array item)
 {
 	if(!item->string && !item->num && !item->arr && !item->next){
@@ -471,12 +482,12 @@ int includes(Array arr, Array item){
 }
 
 void __append(Array arr, Array obj){ // auxiliary to [append]
-	if(obj->id==1 || obj->id==3){
+	if(isString(obj) || isNum(obj)){
 		append(arr, obj);
 		return;
 	}
 
-	if(obj->id==2){
+	if(isArray(obj)){
 		if(getLength(obj)==0){
 			append_array(arr, obj);
 		}else{
@@ -492,7 +503,7 @@ int A_Validate(Array arr){
 }
 
 int __equals(Array node1, Array node2){
-	if(node1->id == 2)
+	if(isArray(node1))
 		return equals(node1->arr, node2);
 	return equals(node1, node2);
 }
@@ -523,9 +534,15 @@ int removeObject(Array* arr, Array search){ // need to use a pointer here as [Ar
 	return 0;
 }
 
+char* getCStr(Array obj){
+	if(isString(obj))
+		return obj->string;
+	return null;
+}
+
 Array callback1(Array arr, Array item, int index){
-	if(item->string)
-		if(!compareStr(item->string, " "))
+	if(isString(item))
+		if(!compareStr(getCStr(item), " "))
 			return item;
 	return null;
 }
