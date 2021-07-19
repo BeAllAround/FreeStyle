@@ -7,6 +7,11 @@
 #define RETURN return
 #define CASE if
 
+#define isArray(o) o->id == 2
+#define isString(o) o->id == 1
+#define isNum(o) o->id == 3
+
+
 // compatible with gcc and clang
 //
 
@@ -61,23 +66,7 @@ extern int __validate(Array, Array);
 extern int ___validate(Array, Array);
 extern int __equals(Array, Array);
 
-extern int isArray(Array);
-extern int isString(Array);
-extern int isNum(Array);
-
 extern char* getCStr(Array);
-
-int isArray(Array arr){
-	return arr->id == 2;
-}
-
-int isString(Array obj){
-	return obj->id == 1;
-}
-
-int isNum(Array obj){
-	return obj->id == 3;
-}
 
 Array reduce(Array arr, __CALL callback){
 	Array copy = newArray(), call, node = arr;
