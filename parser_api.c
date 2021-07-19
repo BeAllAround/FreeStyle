@@ -4,6 +4,8 @@
 #include <string.h>
 
 #define null NULL
+// compatible with gcc and clang
+//
 
 int compareStr(char* str, char* rst)
 {
@@ -49,9 +51,11 @@ extern int getLength(Array);
 extern char* charToString(char);
 extern int equals(Array, Array);
 extern int includes(Array, Array);
+
 extern int _validate(Array, Array);
 extern int __validate(Array, Array);
 extern int ___validate(Array, Array);
+extern int __equals(Array, Array);
 
 char* charToString(char c){
 	char* string = (char*)malloc(2);
@@ -439,10 +443,7 @@ int includes(Array arr, Array item){
 	}
 	*/
 	while(node != NULL){
-		if(node->id==2)
-			if(equals(node->arr, item))
-				return 1;
-		if(equals(node, item))
+		if(__equals(node, item))
 			return 1;
 		node = node->next;
 	}
@@ -595,11 +596,11 @@ int main(void){
 
 	while(removeObject(&_s, newString("")));
 
-	append(_s, newString("."));
 	append(_s, newArray());
+	append(_s, newString("."));
 
-	append((Array)atIndex(_s, getLength(_s)-1), newInt(&S2));
-	append((Array)atIndex(_s, getLength(_s)-1), newArray());
+	append((Array)atIndex(_s, getLength(_s)-2), newInt(&S2));
+	append((Array)atIndex(_s, getLength(_s)-2), newArray());
 	printArray(_s);
 
 	removeObject(&_s, newString("next"));
@@ -633,7 +634,6 @@ int main(void){
 	append(__var, _var);
 	if(removeObject(&R,__var))
 		printArray(R); // []
-
 
 	return 0;
 }
