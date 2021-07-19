@@ -5,16 +5,18 @@
 
 #define null NULL
 #define RETURN return
+#define CASE if
+
 // compatible with gcc and clang
 //
 
 int compareStr(char* str, char* rst)
 {
 	int i;
-	if(strlen(str) != strlen(rst))
+	CASE(strlen(str) != strlen(rst))
 		return 0;
 	for(i = 0; i < strlen(str); i++){
-		if(str[i] != rst[i])
+		CASE(str[i] != rst[i])
 			return 0;
 	}
 	return 1;
@@ -81,8 +83,8 @@ Array reduce(Array arr, __CALL callback){
 	Array copy = newArray(), call, node = arr;
 	int c = 0;
 	while(node != NULL){
-		if(!(!node->arr && !node->string && !node->num && !node->next))
-			if(call = callback(arr, node, c))
+		CASE(!(!node->arr && !node->string && !node->num && !node->next))
+			CASE(call = callback(arr, node, c))
 				append(copy, call);
 		node = node->next;
 		c++;
@@ -118,58 +120,55 @@ Array newInt(int* num){
 }
 
 void append(Array arr, Array item){
-	if(item->id == 3){
+	CASE(item->id == 3)
 		appendInt(arr, item->num);
-	}
-	if(item->id == 1){
+	CASE(item->id == 1)
 		appendString(arr, item->string);
-	}
-	if(item->id == 2){
+	CASE(item->id == 2)
 		append_array(arr, item); // BRP 
-	}
 };
 
 int _validate(Array node, Array _node){
 	// two-way validation
 	
-	if(node->string == NULL && _node->string != NULL)
+	CASE(node->string == NULL && _node->string != NULL)
 		return 0;
-	if(node->string != NULL && _node->string == NULL)
+	CASE(node->string != NULL && _node->string == NULL)
 		return 0;
-	if(node->num == NULL && _node->num != NULL)
+	CASE(node->num == NULL && _node->num != NULL)
 		return 0;
-	if(node->num != NULL && _node->num == NULL)
+	CASE(node->num != NULL && _node->num == NULL)
 		return 0;
-	if(node->arr == NULL && _node->arr != NULL)
+	CASE(node->arr == NULL && _node->arr != NULL)
 		return 0;
-	if(node->arr != NULL && _node->arr == NULL)
+	CASE(node->arr != NULL && _node->arr == NULL)
 		return 0;
 	return 1;
 }
 
 int equals(Array arr, Array _arr){
 	Array node = arr, _node = _arr;
-	if(node == NULL && _node == NULL)
+	CASE(node == NULL && _node == NULL)
 		return 1;
-	if(node == NULL && _node != NULL)
+	CASE(node == NULL && _node != NULL)
 		return 0;
-	if(node != NULL && _node == NULL)
+	CASE(node != NULL && _node == NULL)
 		return 0;
 	while(node != NULL && _node != NULL){
-		if(!_validate(node, _node))
+		CASE(!_validate(node, _node))
 			return 0;
-		if(node->string && _node->string){
+		CASE(node->string && _node->string){
 			if(!compareStr(node->string, _node->string))
 				return 0;
 		}
 
-		if(node->num && _node->num){
+		CASE(node->num && _node->num){
 			if(((int)*node->num) != ((int)*_node->num))
 				return 0;
 		}
 
-		if(node->arr && _node->arr){
-			if(!equals(node->arr, _node->arr)) // let's make my exit out of recursion!
+		CASE(node->arr && _node->arr){
+			CASE(!equals(node->arr, _node->arr)) // let's make my exit out of recursion!
 				return 0;
 		}
 
@@ -686,9 +685,12 @@ int main(void){
 		printArray(R); // []
 
 	Array next = split("WHAT's  THAT?", "");
+	append(next, newInt(&S2));
+	append(next, newInt(&S2));
 	printArray(next);
 	next = reduce(next, callback1);
-	printArray(next);
-
+	printArray(next); 
+	// ["W", "H", "A", "T", "'", "s", "T", "H", "A", "T", "?"]
+	
 	return 0;
 }
