@@ -609,11 +609,15 @@ int main(void){
 	}
 
 	R = newArray();
+	Array _var;
 	append(R, newString("CLIMB"));
 	append(R, newString("@CLIMB"));
 	append(R, newArray());
 	append(R, newArray());
 	append((Array)atIndex(R, 2), newString("HA!"));
+	append((Array)atIndex(R, 3), newArray());
+	append((Array)atIndex((Array)atIndex(R, 3), 0), newArray());
+	append(_var = (Array)atIndex((Array)atIndex(R, 3), 0), newString("mE"));
 	printArray(R);
 
 	Array __R = newArray();
@@ -624,6 +628,11 @@ int main(void){
 		printArray(R);
 	if(removeObject(&R, newString("@CLIMB")))
 		printArray(R);
+	
+	Array __var = newArray();
+	append(__var, _var);
+	if(removeObject(&R,__var))
+		printArray(R); // []
 
 
 	return 0;
