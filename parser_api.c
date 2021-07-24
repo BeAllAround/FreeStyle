@@ -6,8 +6,10 @@
 #define null NULL
 #define RETURN return
 #define CASE if
+#define BREAK break
 #define TRUE 1
 #define FALSE 0
+#define WHILE while
 
 #define isArray(o) o->id == 2
 #define isString(o) o->id == 1
@@ -545,6 +547,19 @@ Array callback1(Array arr, Array item, int index){
 	return null;
 }
 
+int removeAll(Array* arr, Array item){
+	int _bool = FALSE, i;
+
+	WHILE(TRUE){
+		(i = removeObject(arr, item));	
+		CASE(i)
+			_bool = TRUE;
+		CASE(!i)
+			BREAK;
+	}
+	RETURN _bool;
+}
+
 int main(void){
 	int value = 40, value1= 30;
 	Array arr = newArray();
@@ -638,8 +653,8 @@ int main(void){
 	append(R, newArray());
 	printArray(R);
 
-	while(removeObject(&_s, newString("")));
 
+	removeAll(&_s, newString(""));
 	append(_s, newArray());
 	append(_s, newString("."));
 
@@ -680,9 +695,8 @@ int main(void){
 
 	printf("-------------------------------------------\n");
 
-	while(removeObject(&R, newArray())); // erase empty-arrays
-
-	printArray(R);
+	if(removeAll(&R, newArray()))
+		printArray(R);
 
 
 	
@@ -699,6 +713,13 @@ int main(void){
 	next = reduce(next, callback1);
 	printArray(next); 
 	// ["W", "H", "A", "T", "'", "s", "T", "H", "A", "T", "?"]
+
+	/*	
+	char* code = malloc(1000);
+	scanf("%s", code); // "304,405,302,401,4045,3104,401"
+	printArray(split(code, ","));
+	// ["304", "405", "302", "401", "4045", "3104", "401"]
+	*/
 	
 	return 0;
 }
