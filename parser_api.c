@@ -12,7 +12,7 @@
 #define isArray(o) o->id == 2
 #define isString(o) o->id == 1
 #define isNum(o) o->id == 3
-#define isEmpty(obj) !getLength(obj)
+#define isEmpty(o) !getLength(o)
 
 
 // compatible with gcc and clang
