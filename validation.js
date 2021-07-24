@@ -80,33 +80,37 @@ function looper(string, start, brace, _brace, brace1, _brace1, brace2, _brace2){
   return true;
 }
 
-console.log(validBraces("[({})] {}(){}(){[]}(((())))({{{{}}}})")); // true
-console.log(validBraces("[] [] [((), [])]")); // true
-console.log(validBraces("[] [] {[}((), [])]")); // false
-console.log(validBraces("[] [] [[(](), [])]")); // false
-console.log(validBraces("() [] {)")); // false
-console.log(validBraces("() [] {(})")); // false
-console.log(validBraces("() [] {[}]")); // false
-console.log(validBraces("() [] ({)}")); // false
-console.log(validBraces("() [] [{]}")); // false
-console.log(validBraces("() [] ([)]")); // false
-console.log(validBraces("() [] (()[)]")); // false
-console.log(validBraces("() [] ((()[)(]))")); // false
-console.log(validBraces("() [] {{{}(}{)}}")); // false
-console.log(validBraces("() [] {{{}[}{]}}")); // false
-console.log(validBraces("() [] [([[][][[]]])]")); // true
-console.log(validBraces("() [] [([[(])[]()[[]]])]")); // false
-console.log(validBraces("({}, {(), []},) [] [[[[]{}]{}]()]")); // true
-console.log(validBraces("[] [] {[]}{} {{{{{}}}}}()[](())({)}()")); // false
+function __main__(...args){
+	console.log(validBraces("[({})] {}(){}(){[]}(((())))({{{{}}}})")); // true
+	console.log(validBraces("[] [] [((), [])]")); // true
+	console.log(validBraces("[] [] {[}((), [])]")); // false
+	console.log(validBraces("[] [] [[(](), [])]")); // false
+	console.log(validBraces("() [] {)")); // false
+	console.log(validBraces("() [] {(})")); // false
+	console.log(validBraces("() [] {[}]")); // false
+	console.log(validBraces("() [] ({)}")); // false
+	console.log(validBraces("() [] [{]}")); // false
+	console.log(validBraces("() [] ([)]")); // false
+	console.log(validBraces("() [] (()[)]")); // false
+	console.log(validBraces("() [] ((()[)(]))")); // false
+	console.log(validBraces("() [] {{{}(}{)}}")); // false
+	console.log(validBraces("() [] {{{}[}{]}}")); // false
+	console.log(validBraces("() [] [([[][][[]]])]")); // true
+	console.log(validBraces("() [] [([[(])[]()[[]]])]")); // false
+	console.log(validBraces("({}, {(), []},) [] [[[[]{}]{}]()]")); // true
+	console.log(validBraces("[] [] {[]}{} {{{{{}}}}}()[](())({)}()")); // false
 
-// CodeWars tests
-console.log("-------------------");
-console.log(validBraces("(){}[]")); // true
-console.log(validBraces("([{}])")); // true
-console.log(validBraces("(}")); // false
-console.log(validBraces("[(])")); // false
-console.log(validBraces("[({})](]")); // false
-console.log(validBraces(")(}{][")); // false
-console.log(validBraces(")()()(")); // false
-console.log(validBraces(")()(()")); // false
-console.log(validBraces("}{[]")); // false
+	// CodeWars tests
+	console.log("-------------------");
+	console.log(validBraces("(){}[]")); // true
+	console.log(validBraces("([{}])")); // true
+	console.log(validBraces("(}")); // false
+	console.log(validBraces("[(])")); // false
+	console.log(validBraces("[({})](]")); // false
+	console.log(validBraces(")(}{][")); // false
+	console.log(validBraces(")()()(")); // false
+	console.log(validBraces(")()(()")); // false
+	console.log(validBraces("}{[]")); // false
+}
+
+__main__();
