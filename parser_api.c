@@ -472,7 +472,7 @@ int includes(Array arr, Array item){
 	int i;
 	while(node != NULL){
 		CASE(isEmpty(node) && isEmpty(item)) // solving the empty-array problem;
-			RETURN FALSE;
+			RETURN FALSE; // nothing to search for
 		CASE(__equals(node, item))
 			RETURN TRUE;
 		node = node->next;
