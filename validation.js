@@ -107,3 +107,6 @@ console.log(validBraces("(}")); // false
 console.log(validBraces("[(])")); // false
 console.log(validBraces("[({})](]")); // false
 console.log(validBraces(")(}{][")); // false
+console.log(validBraces(")()()(")); // false
+console.log(validBraces(")()(()")); // false
+console.log(validBraces("}{[]")); // false
