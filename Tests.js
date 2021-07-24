@@ -33,16 +33,15 @@ function returnObject(obj, item, name, list){
         }
         if(obj instanceof Object){
                 for(var o in obj){
-                        if(findObject(obj[o], item, o)){
-                                list = returnObject(obj[o], item, o, list);
-                        }
+                        if(findObject(obj[o], item, o))
+				list = returnObject(obj[o], item, o, list);
                 }
                 return list;
         }
 }
 
 function return_object(obj, item){
-        return returnObject(obj, item, "", []); // starting point...
+        return returnObject(obj, item, "", new Array()); // starting point...
 }
 
 /*
