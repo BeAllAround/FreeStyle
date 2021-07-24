@@ -12,6 +12,7 @@
 #define isArray(o) o->id == 2
 #define isString(o) o->id == 1
 #define isNum(o) o->id == 3
+#define isEmpty(obj) !getLength(obj)
 
 
 // compatible with gcc and clang
@@ -69,6 +70,7 @@ extern int ___validate(Array, Array);
 extern int __equals(Array, Array);
 
 extern char* getCStr(Array);
+extern Array split(char*, char*); // perfectly runs
 
 Array reduce(Array arr, __CALL callback){
 	Array copy = newArray(), call, node = arr;
@@ -169,7 +171,8 @@ int equals(Array arr, Array _arr){
 	return 1;
 }
 
-void appendString(Array arr, char* string){
+void appendString(Array arr, char* string)
+{
 	Array last, node = arr;
 	while(node != NULL){
 		if(!node->next){
@@ -183,7 +186,8 @@ void appendString(Array arr, char* string){
 	last->next = (Array)malloc(sizeof(struct Arr));
 }
 
-void appendInt(Array arr, int* num){
+void appendInt(Array arr, int* num)
+{
 	Array last, node = arr;
         while(node != NULL){
                 if(!node->next){
@@ -196,7 +200,8 @@ void appendInt(Array arr, int* num){
 	last->next = (Array)malloc(sizeof(struct Arr));
 }
 
-void appendArray(Array arr){
+void appendArray(Array arr)
+{
 	Array last, node = arr;
 	while(node != NULL){
 		if(!node->next){
@@ -398,7 +403,8 @@ int _trim(char* _string, char* _match, int back, int forward)
 	return compareStr(s, _match);
 }
 
-char* injectString(char* string, char* append){
+char* injectString(char* string, char* append)
+{
 	char* newBorn = (char*)malloc(strlen(string) + strlen(append) + 1); // HAHA
 	int size = 0;
 	int i;
@@ -413,7 +419,8 @@ char* injectString(char* string, char* append){
 	return newBorn;
 }
 
-int match(char* set, char* subset, int start){
+int match(char* set, char* subset, int start)
+{
 	int i;
         for(i = start; i < strlen(set); i++){
                 if(_trim(set, subset, i, strlen(subset)))
@@ -422,7 +429,8 @@ int match(char* set, char* subset, int start){
         return -1;
 };
 
-Array split(char* string, char* gutter){
+Array split(char* string, char* gutter)
+{
 	Array arr = newArray();
 	char* stringSwap;
 
@@ -463,7 +471,7 @@ int includes(Array arr, Array item){
 	Array node = arr;
 	int i;
 	while(node != NULL){
-		CASE(!getLength(node) && !getLength(item)) // solving the empty-array problem;
+		CASE(isEmpty(node) && isEmpty(item)) // solving the empty-array problem;
 			RETURN FALSE;
 		CASE(__equals(node, item))
 			RETURN TRUE;
@@ -536,7 +544,6 @@ Array callback1(Array arr, Array item, int index){
 			return item;
 	return null;
 }
-
 
 int main(void){
 	int value = 40, value1= 30;
