@@ -6,6 +6,8 @@
 #define null NULL
 #define RETURN return
 #define CASE if
+#define TRUE 1
+#define FALSE 0
 
 #define isArray(o) o->id == 2
 #define isString(o) o->id == 1
@@ -426,7 +428,6 @@ Array split(char* string, char* gutter){
 
 	if(match(string, gutter, 0) == -1){
 		append(arr, newString(string));
-		printf("ID: %d\n", newString(string)->id);
 		return arr;
 	}
 
@@ -459,28 +460,29 @@ Array split(char* string, char* gutter){
 }
 
 int includes(Array arr, Array item){
-	int i;
 	Array node = arr;
+	int i;
 	while(node != NULL){
-		if(__equals(node, item))
-			return 1;
+		CASE(!getLength(node) && !getLength(item)) // solving the empty-array problem;
+			RETURN FALSE;
+		CASE(__equals(node, item))
+			RETURN TRUE;
 		node = node->next;
 	}
-	return 0;
+	RETURN FALSE;
 }
 
 void __append(Array arr, Array obj){ // auxiliary to [append]
 	if(isString(obj) || isNum(obj)){
 		append(arr, obj);
-		return;
+		RETURN;
 	}
 
 	if(isArray(obj)){
-		if(getLength(obj)==0){
+		if(getLength(obj) == 0)
 			append_array(arr, obj);
-		}else{
+		else
 			append_array(arr, obj->arr);
-		}
 		RETURN;
 	}
 	
@@ -657,6 +659,8 @@ int main(void){
 	printArray(R);
 	
 
+	append(R, newArray());
+	append(R, newArray());
 	Array __R = newArray();
 	append(__R, newString("HA!"));
 
@@ -666,11 +670,19 @@ int main(void){
 		printArray(R);
 	if(removeObject(&R, newString("@CLIMB")))
 		printArray(R);
+
+	printf("-------------------------------------------\n");
+
+	while(removeObject(&R, newArray())); // erase empty-arrays
+
+	printArray(R);
+
+
 	
 	Array __var = newArray();
 	append(__var, _var);
 
-	if(removeObject(&R,__var))
+	if(removeObject(&R, __var))
 		printArray(R); // []
 
 	Array next = split("WHAT's  THAT?", "");
