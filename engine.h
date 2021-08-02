@@ -21,6 +21,7 @@
 #define AUTHOR " AM "
 
 /*
+	developed August 2019
 	gcc/g++ [file1].c -o [file1] -w -std=c11;
 */
 
