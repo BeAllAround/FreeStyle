@@ -58,7 +58,7 @@ function return_object(obj, item){
 }
 */
 
-function __main__(...args){
+(function __main__(...args){
 	var obj = {want: "10", love: {me: "why", you: {e: {me: "AE"}}, ha: "HA",},};
 
 	removeElement(obj, "me"); // or just -> while(removeElement(obj, "me"));
@@ -85,6 +85,4 @@ function __main__(...args){
 	console.log(return_object(obj2, "want")); // [ 11 ]
 	console.log(return_object(obj2, "you")); // [ { me: 401, ha: 'DATA', e: { me: 'AE' } } ]
 	console.log(return_object(obj2, "me")); // [ 'why', 401, 'AE', 'WE' ]
-}
-
-__main__();
+})();
