@@ -1,5 +1,5 @@
 function __searchObjects(obj, name, toFind, arr){
-        if(toFind == name)
+        if(name == toFind)
 		arr.push({[`${toFind}`]: obj});
         if(obj instanceof Object)
                 for(var i in obj){
@@ -9,7 +9,7 @@ function __searchObjects(obj, name, toFind, arr){
 }
 
 function __includesObjects(obj, name, toFind, arr){
-	if(toFind == name)
+	if(name == toFind)
 		arr.push(true);
 	if(obj instanceof Object)
 		for(let i in obj)
@@ -18,7 +18,7 @@ function __includesObjects(obj, name, toFind, arr){
 }
 
 function __includesObject(obj, name, toFind){
-	if(toFind == name)
+	if(name == toFind)
 		return true;
 	if(obj instanceof Object)
 		for(let i in obj)
@@ -27,16 +27,22 @@ function __includesObject(obj, name, toFind){
 	return false;
 }
 
+class dummy{};
+
+const _dummy = ()=>{
+	return new dummy();
+}
+
 function searchObjects(obj, toFind){
-        return __searchObjects(obj, undefined, toFind, []);
+        return __searchObjects(obj, _dummy(), toFind, []);
 }
 
 function includesObjects(obj, toFind){
-	return __includesObjects(obj, undefined, toFind, []);
+	return __includesObjects(obj, _dummy(), toFind, []);
 }
 
 function includesObject(obj, toFind){
-	return __includesObject(obj, undefined, toFind);
+	return __includesObject(obj, _dummy(), toFind);
 }
 
 (function __main__(){
