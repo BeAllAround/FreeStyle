@@ -79,11 +79,11 @@ extern int* embedInt(int const);
 #define New(name, _type) _type* name = ((_type*)malloc(1));
 #define New_init(self, value) self[0] = value;
 #define New_P(self) self + 0;
+#define _New(_type, value) ({ New(_var, int); \
+	       	New_init(_var, value); New_P(_var); });
 
 int* embedInt(int const _int){
-	New(arr_1, int);
-	New_init(arr_1, _int);
-	return New_P(arr_1);
+	return _New(int, _int);
 }
 
 Array reduce(Array arr, __CALL callback){
@@ -749,7 +749,7 @@ int main(void){
 	// ["W", "H", "A", "T", "'", "s", "T", "H", "A", "T", "?", ["T"]]
 	printArray(includesObjects(next, newArray())); // [1]
 	printArray(includesObjects(next, newString("?"))); // [1]
-	printArray(includesObjects(next, newString("T"))); // [1, 1, 1]
+	printArray(includesObjects(next, newString("T"))); // [1, 1, 1, 1]
 
 	if(removeObject(&next, (Array)atIndex(next, 11)))
 		printArray(next);
