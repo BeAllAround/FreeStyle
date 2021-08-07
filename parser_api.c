@@ -72,7 +72,7 @@ extern int ___validate(Array, Array);
 extern int __equals(Array, Array);
 
 extern char* getCStr(Array);
-extern Array split(char*, char*); // perfectly runs
+extern Array split(char*, char*); // runs perfectly
 
 // struct allocators
 extern int* embedInt(int const);
