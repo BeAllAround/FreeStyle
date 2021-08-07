@@ -76,11 +76,14 @@ extern Array split(char*, char*); // runs perfectly
 
 // struct allocators
 extern int* embedInt(int const);
+#define New(name, _type) _type* name = ((_type*)malloc(1));
+#define New_init(self, value) self[0] = value;
+#define New_P(self) self + 0;
 
 int* embedInt(int const _int){
-	int* arr_1;
-	(arr_1 = (int*)malloc(1))[0] = _int;
-	return arr_1 + 0;
+	New(arr_1, int);
+	New_init(arr_1, _int);
+	return New_P(arr_1);
 }
 
 Array reduce(Array arr, __CALL callback){
@@ -546,7 +549,7 @@ int removeObject(Array* arr, Array search){ // need to use a pointer here as [Ar
 Array __includesObjects(Array arr, Array obj, Array _new){
 	Array node = arr;
 	while(node != null){
-		if(__equals(node, obj))
+		if(equals(node, obj))
 			append(_new, newInt(embedInt(TRUE)));
 		if(node->arr)
 			_new = __includesObjects(node->arr, obj, _new);
@@ -740,11 +743,18 @@ int main(void){
 	append(next, newInt(&S2));
 	printArray(next);
 	next = reduce(next, callback1);
+	append(next, newArray());
+	append((Array)atIndex(next, 11), newString("T"));
 	printArray(next); 
-	// ["W", "H", "A", "T", "'", "s", "T", "H", "A", "T", "?"]
-	printArray(includesObjects(next, newArray())); // []
+	// ["W", "H", "A", "T", "'", "s", "T", "H", "A", "T", "?", ["T"]]
+	printArray(includesObjects(next, newArray())); // [1]
 	printArray(includesObjects(next, newString("?"))); // [1]
 	printArray(includesObjects(next, newString("T"))); // [1, 1, 1]
+
+	if(removeObject(&next, (Array)atIndex(next, 11)))
+		printArray(next);
+
+	// ["W", "H", "A", "T", "'", "s", "T", "H", "A", "T", "?"]
 
 	/*	
 	char* code = malloc(1000);
