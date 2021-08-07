@@ -76,14 +76,14 @@ extern Array split(char*, char*); // runs perfectly
 
 // struct allocators
 extern int* embedInt(int const);
-#define New(name, _type) _type* name = ((_type*)malloc(1));
-#define New_init(self, value) self[0] = value;
-#define New_P(self) self + 0;
-#define _New(_type, value) ({ New(_var, _type); \
-	       	New_init(_var, value); New_P(_var); });
+#define _New(name, _type) _type* name = ((_type*)malloc(1));
+#define _New_init(self, value) self[0] = value;
+#define _New_P(self) self + 0;
+#define New(_type, value) ({ _New(_var, _type); \
+	       	_New_init(_var, value); _New_P(_var); });
 
 int* embedInt(int const _int){
-	return _New(int, _int);
+	return New(int, _int);
 }
 
 Array reduce(Array arr, __CALL callback){
