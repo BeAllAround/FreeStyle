@@ -78,9 +78,9 @@ extern Array split(char*, char*); // perfectly runs
 extern int* embedInt(int const);
 
 int* embedInt(int const _int){
-        int* arr_1 = (int*)malloc(1);
-        (arr_1[0] = _int);
-        return arr_1 + 0;
+	int* arr_1;
+	(arr_1 = (int*)malloc(1))[0] = _int;
+	return arr_1 + 0;
 }
 
 Array reduce(Array arr, __CALL callback){
