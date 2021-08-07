@@ -77,6 +77,12 @@ extern Array split(char*, char*); // perfectly runs
 // memory allocations
 extern int* embedInt(int const);
 
+int* embedInt(int const _int){
+        int* arr_1 = (int*)malloc(1);
+        (arr_1[0] = _int);
+        return arr_1 + 0;
+}
+
 Array reduce(Array arr, __CALL callback){
 	Array copy = newArray(), call, node = arr;
 	int c = 0;
@@ -535,12 +541,6 @@ int removeObject(Array* arr, Array search){ // need to use a pointer here as [Ar
 		return 1;
 	}
 	return 0;
-}
-
-int* embedInt(int const _int){
-	int* arr_1 = (int*)malloc(1);
-	(arr_1[0] = _int);
-	return arr_1 + 0;
 }
 
 Array __includesObjects(Array arr, Array obj, Array _new){
