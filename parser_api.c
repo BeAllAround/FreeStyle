@@ -74,7 +74,7 @@ extern int __equals(Array, Array);
 extern char* getCStr(Array);
 extern Array split(char*, char*); // perfectly runs
 
-// memory allocations
+// struct allocators
 extern int* embedInt(int const);
 
 int* embedInt(int const _int){
