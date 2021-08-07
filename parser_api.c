@@ -74,6 +74,9 @@ extern int __equals(Array, Array);
 extern char* getCStr(Array);
 extern Array split(char*, char*); // perfectly runs
 
+// memory allocations
+extern int* embedInt(int const);
+
 Array reduce(Array arr, __CALL callback){
 	Array copy = newArray(), call, node = arr;
 	int c = 0;
@@ -534,6 +537,32 @@ int removeObject(Array* arr, Array search){ // need to use a pointer here as [Ar
 	return 0;
 }
 
+int* embedInt(int const _int){
+	int* arr_1 = (int*)malloc(1);
+	(arr_1[0] = _int);
+	return arr_1 + 0;
+}
+
+Array __includesObjects(Array arr, Array obj, Array _new){
+	Array node = arr;
+	while(node != null){
+		if(__equals(node, obj))
+			append(_new, newInt(embedInt(TRUE)));
+		if(node->arr)
+			_new = __includesObjects(node->arr, obj, _new);
+		node = node->next;
+	}
+	return _new;
+}
+
+Array includesObjects(Array arr, Array obj){
+	Array _new;
+	_new = __includesObjects(arr, obj, newArray());
+	if(getLength(obj) == 0)
+		removeObject(&_new, newInt(embedInt(TRUE)));
+	return _new;
+}
+
 char* getCStr(Array obj){
 	if(isString(obj))
 		return obj->string;
@@ -548,14 +577,14 @@ Array callback1(Array arr, Array item, int index){
 }
 
 int removeAll(Array* arr, Array item){
-	int _bool = FALSE, i;
+	int _bool = FALSE, i, VAL = TRUE;
 
-	WHILE(TRUE){
+	WHILE(VAL){
 		(i = removeObject(arr, item));	
 		CASE(i)
 			_bool = TRUE;
 		CASE(!i)
-			BREAK;
+			VAL = FALSE;
 	}
 	RETURN _bool;
 }
@@ -654,7 +683,7 @@ int main(void){
 	printArray(R);
 
 
-	removeAll(&_s, newString(""));
+	if(removeAll(&_s, newString("")));
 	append(_s, newArray());
 	append(_s, newString("."));
 
@@ -713,6 +742,9 @@ int main(void){
 	next = reduce(next, callback1);
 	printArray(next); 
 	// ["W", "H", "A", "T", "'", "s", "T", "H", "A", "T", "?"]
+	printArray(includesObjects(next, newArray())); // []
+	printArray(includesObjects(next, newString("?"))); // [1]
+	printArray(includesObjects(next, newString("T"))); // [1, 1, 1]
 
 	/*	
 	char* code = malloc(1000);
