@@ -40,7 +40,7 @@ std::ostream&operator<<(std::ostream&o, std::vector<std::string>const v){
 
 int main(){
 	auto v = solution("");
-	int t = 0;
+	int t{};
 	std::cout << "TEST# " << ++t << std::endl;
 	std::cout << v;
 	std::cout << "TEST# " << ++t << std::endl;
