@@ -9,8 +9,7 @@ def search(str1, c):
   return -1;
 
 def trim(str1, inx):
-  end = len(str1);
-  _str = "";
+  _str, end = "", len(str1);
   if(inx >= len(str1)):
     return str1;
   for i in xrange(0, inx):
