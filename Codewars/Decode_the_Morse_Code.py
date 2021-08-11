@@ -32,7 +32,15 @@ def clear(arr):
             else:
                 _new.append(item);
                 c = True;
-    i = len(_new)-1;
+    i = len(_new)-1;  ''' or just pop:       
+                                i = len(_new)-1;
+                                while(i >= 0):
+                                    if(_new[i] == ''):
+                                        _new.pop();
+                                    else:
+                                        break;
+                                    i -= 1;
+                                return _new;'''
     while(i >= 0):
         if(_new[i] == ''):
             _new[i] = None;
