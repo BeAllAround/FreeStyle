@@ -1,12 +1,12 @@
 def domain_name(url):
+    first = ['www', 'http://www', 'https://www'];
     url = url.split('.');
-    if(url[0] == 'www'):
+    url_start = url[0];
+    if url_start in first:
         return url[1];
-    elif url[0] == 'http://www' or url[0] == 'https://www':
-        return url[1];
-    elif url[0].startswith('http://'):
-        return url[0].split('http://')[1];
-    elif url[0].startswith('https://'):
-        return url[0].split('https://')[1];
+    elif url_start.startswith('http://'):
+        return url_start.split('http://')[1];
+    elif url_start.startswith('https://'):
+        return url_start.split('https://')[1];
     else:
-        return url[0];
+        return url_start;
