@@ -20,7 +20,7 @@ class Token:
     
 def _valid(t):
     while t.get():
-        if(t.lp):
+        if t.lp:
             try:
                 _valid(t);
             except Exception:
@@ -28,17 +28,19 @@ def _valid(t):
                     raise Exception();
             else:
                 raise Exception();
-        elif t.current == ')':
+        elif t.rp:
             raise Exception();
-            
+    
 def valid_parentheses(string):
+    # print(string);
+    c = 0;
     if(string==''):
         return True;
     t = Token(string);
     try:
-        _valid(t);
+        (_valid(t));
     except Exception:
-        return False;
+        return (False);
     return True;
 
 if __name__ == "__main__":
