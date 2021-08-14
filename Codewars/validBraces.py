@@ -73,7 +73,8 @@ def _valid(t):
                 raise Bracket1();
         elif t.r_b:
             raise Bracket1();
-def validBraces(string):
+
+ def validBraces(string):
     t = Token(string);
     try:
         _valid(t);
