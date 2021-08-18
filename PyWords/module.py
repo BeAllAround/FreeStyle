@@ -7,6 +7,11 @@
 ->define function def
 ->define SLEEP time.sleep(1)
 
+
+
+
+
+
 ->define BLOCK :
 ->define LESS <
 
@@ -16,7 +21,7 @@ function cry() BLOCK
     return "...";
 
 i = 0;
-WHILE i LESS 10 BLOCK
+WHILE i LESS 20 BLOCK
     print(i);
     i += 1;
 

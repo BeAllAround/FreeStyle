@@ -7,6 +7,10 @@
 
 // -I/usr/include/python3.8 -lpython3.8 --std=c++14;
 
+#define RESET str = ""; \
+	      l = 0; \
+              _bool = 0;
+
 
 static int STARTER;
 
@@ -14,7 +18,7 @@ using namespace std;
 
 int search_2(std::string, std::string, int);
 
-const std::vector<std::string> define(std::string use){
+const std::vector<std::string> define(const std::string&use){
 	string str = "";
 	vector<string>arr;
 	string def = "->define ";
@@ -26,16 +30,12 @@ const std::vector<std::string> define(std::string use){
 				if(use[i] == ' '){
 					if(_bool){
 						arr.push_back(str);
-						str = "";
-						l = 0;
-						_bool = 0;
+						RESET;
 					}
 					continue; // ignore
 				}else if(use[i] == '\n'){
 					arr.push_back(str);
-					str ="";
-					l = 0;
-					_bool = 0;
+					RESET;
 					while(use[++i] == ' '); // eat white space and the remaining '\n'
 					index = search_2(use, def, start = i);
 					STARTER = start;
