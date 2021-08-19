@@ -1,9 +1,6 @@
 ->define WHILE while
 ->define include import
 ->define String str
-
-
-
 ->define TRUE True
 ->define BLOCK :
 ->define CLOSE break
