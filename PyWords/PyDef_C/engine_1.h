@@ -213,13 +213,14 @@ void _push(String self, String src)
 /*
 void BRUTE(String comb, String tmp, int n, int end)
 {
-	printf("{%s}, ", Str(tmp));
-	if(n == end)
+	printf("{%s} ", Str(tmp));
+	if(n == end){
+		printf("\n");
 		return;
+	}
 	for(int i = 0; i < size(comb); i++){
 		BRUTE(comb, concat(tmp, at_index(comb, i)), n+1, end);
 	}
-	printf("\n");
 }
 int _BRUTE(String comb, String toFind)
 {
