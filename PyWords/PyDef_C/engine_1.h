@@ -211,17 +211,15 @@ void _push(String self, String src)
 }
 
 /*
-int BRUTE(String comb, String tmp, String toFind, int n, int end)
+void BRUTE(String comb, String tmp, int n, int end)
 {
-	if(compareString(tmp, toFind))
+	printf("{%s}, ", Str(tmp));
+	if(n == end)
 		return;
-	if(n == end){
-		return(compareString(tmp, toFind));
-	}
 	for(int i = 0; i < size(comb); i++){
-	printf("{%d}\n", compareString(tmp, toFind));
-		BRUTE(comb, concat(tmp, at_index(comb, i)), toFind, n+1, end);
+		BRUTE(comb, concat(tmp, at_index(comb, i)), n+1, end);
 	}
+	printf("\n");
 }
 int _BRUTE(String comb, String toFind)
 {
@@ -248,11 +246,11 @@ int main(void){
 	printf("{%s}\n", Str(concat(arr->arr[0], arr->arr[1])));
 
 	printf("{%s}\n", Str(replaceAll(s2, arr->arr[0], arr->arr[1])));
-	printf("%d", _BRUTE(newString("abcde"), newString("abbbbbb")));
 	// BRUTE(newString("aba"), newString(""), newString("abaaa"), 0, 4);
 	String n = newString("SAD");
 	concat(n, newString("4"));
 	printf("{%s}\n", Str(n));
+	(BRUTE(newString("abc"), newString(""), 0, 4));
 
 	return 1;
 }
