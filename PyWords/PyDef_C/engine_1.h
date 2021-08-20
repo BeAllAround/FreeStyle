@@ -204,7 +204,7 @@ void _push(String self, String src)
 {
 	char *swap = self->root;
 	int i, l = 0;
-	self->root = malloc(size(self) + size(src) + 1);
+	self->root = malloc(1000000000L); // malloc(size(self) + size(src) + 1); 
 	for(i = 0; i < strlen(swap); i++)
 		self->root[l++] = *(swap+i);
 	for(i = 0; i < strlen(src->root); i++)
