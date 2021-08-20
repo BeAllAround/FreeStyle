@@ -204,7 +204,7 @@ void _push(String self, String src)
 {
 	char *swap = self->root;
 	int i, l = 0;
-	self->root = malloc(1000000000);
+	self->root = malloc(size(self) + size(src) + 1);
 	for(i = 0; i < strlen(swap); i++)
 		self->root[l++] = *(swap+i);
 	for(i = 0; i < strlen(src->root); i++)
@@ -234,6 +234,7 @@ int BRUTE(String comb, String toFind, int v)
 		if(_BRUTE(comb, newString(""), toFind, 0, ++i, v))
 			return 1;
 }
+
 /*
 int main(void){
 	String s2 = readFile("module.py");
@@ -253,7 +254,7 @@ int main(void){
 	String n = newString("SAD");
 	concat(n, newString("4"));
 	printf("{%s}\n", Str(n));
-	printf("%d", BRUTE(newString("abc12348939399i"), newString("babi23"), 1));
+	printf("%d", BRUTE(newString("abc12348939399i"), newString("babi233"), 1));
 
 	return 1;
 }
