@@ -39,14 +39,16 @@ String at_index(String, int);
 
 array(string_vec, String);
 typedef string_vec* StringVec;
-StringVec newStringVec(int size){
+StringVec newStringVec(int size)
+{
 	string_vec s;
 	s.arr = (String*)malloc(size);
 	s.size = 0;
 	return New(string_vec, s);
 }
 
-void add(StringVec self, String item){
+void add(StringVec self, String item)
+{
 	self->arr[self->size++] = item;
 }
 
@@ -181,7 +183,8 @@ String at_index(String self, int index)
 	return newString(char_to_charP(self->root[index]));
 }
 
-String Copy(String src){
+String Copy(String src)
+{
 	String new = newString("");
 	int i;
 	for(i = 0; i < size(src); i++)
@@ -210,29 +213,28 @@ void _push(String self, String src)
 	self->length = l;
 }
 
-/*
-void BRUTE(String comb, String tmp, int n, int end)
+int _BRUTE(String comb, String tmp, String toFind, int n, int end, int v)
 {
-	printf("{%s} ", Str(tmp));
-	if(n == end){
-		printf("\n");
-		return;
-	}
-	for(int i = 0; i < size(comb); i++){
-		BRUTE(comb, concat(tmp, at_index(comb, i)), n+1, end);
-	}
-}
-int _BRUTE(String comb, String toFind)
-{
-	int i = 0;
-	for(;;){
-		printf("%d", i);
-		if(BRUTE(comb, newString(""), toFind, 0, i))
+	if(v)
+		printf("%s\n", Str(tmp));
+	if(compareString(tmp, toFind))
+		return 1;
+	if(n == end)
+		return compareString(tmp, toFind);
+	for(int i = 0; i < size(comb); i++)
+		if(_BRUTE(comb, concat(tmp, at_index(comb, i)), toFind, n+1, end, v))
 			return 1;
-		i++;
-	}
+	return 0;
 }
 
+int BRUTE(String comb, String toFind, int v)
+{
+	int i = 0;
+	for(;;)
+		if(_BRUTE(comb, newString(""), toFind, 0, ++i, v))
+			return 1;
+}
+/*
 int main(void){
 	String s2 = readFile("module.py");
 
@@ -251,7 +253,7 @@ int main(void){
 	String n = newString("SAD");
 	concat(n, newString("4"));
 	printf("{%s}\n", Str(n));
-	(BRUTE(newString("abc"), newString(""), 0, 4));
+	printf("%d", BRUTE(newString("abc12348939399i"), newString("babi23"), 1));
 
 	return 1;
 }
