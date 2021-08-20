@@ -34,6 +34,8 @@ typedef _String* String;
 
 String concat(String, String);
 void _push(String, String);
+String Copy(String);
+String at_index(String, int);
 
 array(string_vec, String);
 typedef string_vec* StringVec;
@@ -75,11 +77,15 @@ int compareStr(char* str, char* rst)
 	int i;
 	if(strlen(str) != strlen(rst))
 		return 0;
-	for(i = 0; i < strlen(str); i++){
+	for(i = 0; i < strlen(str); i++)
 		if(str[i] != rst[i])
 			return 0;
-	}
 	return 1;
+}
+
+int compareString(String str, String rst)
+{
+	return compareStr(str->root, rst->root);
 }
 
 int _trim(char* _string, char* _match, int back, int forward)
@@ -170,17 +176,32 @@ String readFile(char* name)
 	return newString(string);
 }
 
+String at_index(String self, int index)
+{
+	return newString(char_to_charP(self->root[index]));
+}
+
+String Copy(String src){
+	String new = newString("");
+	int i;
+	for(i = 0; i < size(src); i++)
+		_push(new, at_index(src, i));
+	return new;
+
+}
+
 String concat(String self, String src)
 {
-	_push(self, src);
-	return self;
+	String copy = Copy(self);
+	_push(copy, src);
+	return copy;
 }
 
 void _push(String self, String src)
 {
 	char *swap = self->root;
 	int i, l = 0;
-	self->root = malloc(10000000);
+	self->root = malloc(1000000000);
 	for(i = 0; i < strlen(swap); i++)
 		self->root[l++] = *(swap+i);
 	for(i = 0; i < strlen(src->root); i++)
@@ -190,6 +211,29 @@ void _push(String self, String src)
 }
 
 /*
+int BRUTE(String comb, String tmp, String toFind, int n, int end)
+{
+	if(compareString(tmp, toFind))
+		return;
+	if(n == end){
+		return(compareString(tmp, toFind));
+	}
+	for(int i = 0; i < size(comb); i++){
+	printf("{%d}\n", compareString(tmp, toFind));
+		BRUTE(comb, concat(tmp, at_index(comb, i)), toFind, n+1, end);
+	}
+}
+int _BRUTE(String comb, String toFind)
+{
+	int i = 0;
+	for(;;){
+		printf("%d", i);
+		if(BRUTE(comb, newString(""), toFind, 0, i))
+			return 1;
+		i++;
+	}
+}
+
 int main(void){
 	String s2 = readFile("module.py");
 
@@ -204,6 +248,11 @@ int main(void){
 	printf("{%s}\n", Str(concat(arr->arr[0], arr->arr[1])));
 
 	printf("{%s}\n", Str(replaceAll(s2, arr->arr[0], arr->arr[1])));
+	printf("%d", _BRUTE(newString("abcde"), newString("abbbbbb")));
+	// BRUTE(newString("aba"), newString(""), newString("abaaa"), 0, 4);
+	String n = newString("SAD");
+	concat(n, newString("4"));
+	printf("{%s}\n", Str(n));
 
 	return 1;
 }
