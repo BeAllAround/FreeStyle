@@ -6,6 +6,8 @@
 		    l = 0;_bool = 0;
 #define MAXBUFFER 10000
 
+// -I/usr/include/python3.8 -lpython3.8 --std=c11
+
 static int STARTER;
 
 StringVec define(String use){
@@ -75,14 +77,12 @@ int main(int argc, char **argv){
 			break;
 		}
 
-	// printf("%s\n", s1->root);
 	Run(s1, argv);
 
 	// display "->defs"
 	printf("\n%d\n", arr->size);
-	for(int i = 0; i < arr->size; i++){
+	for(int i = 0; i < arr->size; i++)
 		printf("%d: |%s|\n", i, Str(arr->arr[i]));
-	}
 
 	return 0;
 }

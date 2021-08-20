@@ -19,7 +19,6 @@
 #define New(_type, value) ({ _New(_var, _type); \
 	       	_New_init(_var, value); _New_P(_var); });
 
-#define __add__(source, _push) push(&source, _push);
 
 #define array(DEF, TYPE) typedef struct{ \
 				TYPE *arr; \
@@ -32,6 +31,9 @@ typedef struct{
 }_String;
 
 typedef _String* String;
+
+String concat(String, String);
+void _push(String, String);
 
 array(string_vec, String);
 typedef string_vec* StringVec;
@@ -66,23 +68,6 @@ char *Str(String value)
 int size(String value)
 {
 	return value->length;
-}
-
-String concat(String str_1, String str_2){
-	char *data = (char*)malloc(str_1->length + str_2->length + 1);
-	int i, l = 0;
-	i = 0;
-	for(i = 0; i < str_1->length; i++)
-		data[l++] = *(Str(str_1) + i);
-	i = 0;
-	for(i = 0; i < str_2->length; i++)
-		data[l++] = *(Str(str_2) + i);
-	*(data + l++) = '\0';
-	return newString(data);
-}
-
-void push(String *source, String _push){
-	*source = concat(*source, _push);
 }
 
 int compareStr(char* str, char* rst)
@@ -148,21 +133,26 @@ String replaceAll(String _str, String to_replace, String _replace)
 	return newString(data);
 }
 
-char *char_to_charP(char c){
+char *char_to_charP(char c)
+{
 	char *m = (char*)malloc(2);
 	m[0] = c;
 	m[1] = 0;
 	return m;
 }
 
-String subString(String src, int start, int end){
-	char *_new = (char*)malloc(100000);
+
+String subString(String src, int start, int end)
+{
+	void _push(String, String);
+	String _new = newString("");
 	int i, l = 0;
+
 	if(start >= end || start >= size(src))
 		return src;
 	for(i = start; i < end; i++)
-		_new[l++] = src->root[i];
-	return newString(_new);
+		_push(_new, newString(char_to_charP(src->root[i])));
+	return _new;
 }
 
 String readFile(char* name)
@@ -180,6 +170,24 @@ String readFile(char* name)
 	return newString(string);
 }
 
+String concat(String self, String src)
+{
+	_push(self, src);
+	return self;
+}
+
+void _push(String self, String src)
+{
+	char *swap = self->root;
+	int i, l = 0;
+	self->root = malloc(10000000);
+	for(i = 0; i < strlen(swap); i++)
+		self->root[l++] = *(swap+i);
+	for(i = 0; i < strlen(src->root); i++)
+		self->root[l++] = *(src->root+i);
+	*((self->root)+l) = 0;
+	self->length = l;
+}
 
 /*
 int main(void){
@@ -189,12 +197,11 @@ int main(void){
 	add(arr, newString("include"));
 	add(arr, newString("import"));
 
-	String s1 = newString("WELCOME WELCOME");
-	__add__(s1, newString(" LA LA"));
+	String s1 = subString(newString("WELCOME WELCOME"), 0, 10);
 	printf("%s\n", Str(s1));
 	printf("%d\n", s1->length);
 	printf("%d\n", arr->size);
-	printf("%s\n", Str(concat(arr->arr[0], arr->arr[1])));
+	printf("{%s}\n", Str(concat(arr->arr[0], arr->arr[1])));
 
 	printf("{%s}\n", Str(replaceAll(s2, arr->arr[0], arr->arr[1])));
 
