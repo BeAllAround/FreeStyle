@@ -56,7 +56,7 @@ String newString(char *_root)
 {
 	int l = 0;
 	_String s;
-	s.root = (char*)malloc(strlen(_root));
+	s.root = (char*)malloc(strlen(_root) + 1);
 	while(*_root != 0)
 		s.root[l++] =  *_root++;
 	s.root[l] = '\0';
