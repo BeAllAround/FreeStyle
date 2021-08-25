@@ -39,6 +39,12 @@ class Invoker{
 		Invoker(){
 			std::cout << "INVOKE\n";
 		}
+
+		Invoker(int _v){
+			std::cout << "INVOKE\n";
+			v = _v;
+		}
+
 		~Invoker(){
 			std::cout << "YAY" <<std::endl;
 		}
@@ -56,12 +62,20 @@ class smart_p{
 		~smart_p(){ delete obj; }
 		PR operator*(){ return *obj; }
 		P_ operator->(){ return obj; }
+		smart_p<T>&operator=(const P_&_new){
+			delete obj;
+			obj = _new;
+			return *this;
+		}
 };
 
 void run(){
+	std::cout << "-----------------" << std::endl;
 	auto p = smart_p<Invoker>(new Invoker());
 	std::cout << (*p).v << std::endl;
+	p = new Invoker(55);
 	std::cout << p->v << std::endl;
+	std::cout << "-----------------" << std::endl;
 }
 
 int main(){
