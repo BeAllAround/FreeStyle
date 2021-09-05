@@ -3,7 +3,7 @@
 using namespace ENHANCED;
 
 void _v(Iterator<char>&iter){
-	static bool b = false;
+	bool b = false;
 	char chr;
 	while(++iter){
 		// std::cout << *iter << std::endl;
