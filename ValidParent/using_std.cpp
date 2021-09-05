@@ -3,7 +3,7 @@
 #include <string>
 
 void _v(std::stringstream&iter){
-	static bool b = false;
+	bool b = false;
 	char chr;
 	while(iter >> chr){
 		if(chr == '('){
