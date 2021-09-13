@@ -37,9 +37,10 @@ char* reverseWords(const char* text) {
       str[l++] = text[i];
       str[l++] = 0; 
       str = reverseString(str);
+      l = strlen(str);
       for(j = 0; j < l; j++)
         toR[f_l++] = str[j];
-      toR[f_l++] = 0;
+      toR[f_l] = 0;
       str = malloc(1000);
       l = 0;
       break;
