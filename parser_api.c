@@ -76,8 +76,8 @@ extern Array split(char*, char*); // runs perfectly
 
 // struct allocators
 extern int* embedInt(int const);
-#define _New(name, _type) _type* name = ((_type*)malloc(1));
-#define _New_init(self, value) self[0] = value;
+#define _New(name, _type) _type* name = ((_type*)malloc(sizeof(_type)));
+#define _New_init(self, value) *(self+0) = value;
 #define _New_P(self) self + 0;
 #define New(_type, value) ({ _New(_var, _type); \
 	       	_New_init(_var, value); _New_P(_var); });
@@ -591,6 +591,24 @@ int removeAll(Array* arr, Array item){
 	}
 	RETURN _bool;
 }
+char *readFile(char* name)
+{
+        FILE *f = fopen(name, "rb");
+        if(!f){
+                exit(0);
+        }
+        fseek(f, 0, SEEK_END);
+        long fsize = ftell(f);
+        fseek(f, 0, SEEK_SET);  /* same as rewind(f); */
+
+        char *string = (char*)malloc(fsize + 1);
+        fread(string, 1, fsize, f);
+        fclose(f);
+
+        string[fsize] = '\0';
+        return string;
+}
+
 
 int main(void){
 	int value = 40, value1= 30;
