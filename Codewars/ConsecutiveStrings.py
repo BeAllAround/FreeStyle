@@ -7,6 +7,8 @@ def maxSub(arr, k):
                 dump += arr[j];
             if(len(dump) > len(n)):
                 n = dump;
+        else:
+            break;
         dump = '';
     return n;
 
