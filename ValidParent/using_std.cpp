@@ -92,9 +92,7 @@ bool validate(std::string str){
 }
 
 int main(){
-	std::cout << validate("()()(())()()()()"); // 1
-	std::cout << validate("((())()"); // 0
+	validate("()()(())()()()()"); // 1
+        validate("((())()"); // 0
 	return 1;
 }
-
-
