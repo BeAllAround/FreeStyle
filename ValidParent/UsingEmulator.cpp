@@ -17,7 +17,6 @@ void _v(Iterator<char>&iter){
 		if(*iter == '('){
 			try{
 				_v(iter);
-				--iter;
 				b = true;
 			}catch(int&err){
 				// do nothing
@@ -31,10 +30,7 @@ void _v(Iterator<char>&iter){
 }
 
 bool validate(std::string str){
-	Iterator<char> iter;
-	int i;
-	for(i = 0; i < str.length(); i++)
-		iter << str[i];
+	Iterator<char> iter(str);
 	try{
 		_v(iter);
 	}catch(int&err){

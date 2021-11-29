@@ -82,10 +82,7 @@ void _v(std::stringstream&iter){
 }
 
 bool validate(std::string str){
-	std::stringstream iter;
-	int i;
-	for(i = 0; i < str.length(); i++)
-		iter << str[i];
+	std::stringstream iter{str};
 	try{
 		_v(iter);
 	}catch(int&err){
@@ -95,8 +92,8 @@ bool validate(std::string str){
 }
 
 int main(){
-	validate("()()(())()()()()"); // 1
-	validate("((())()"); // 0
+	std::cout << validate("()()(())()()()()"); // 1
+	std::cout << validate("((())()"); // 0
 	return 1;
 }
 
