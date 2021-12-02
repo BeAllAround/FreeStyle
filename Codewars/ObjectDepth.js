@@ -7,7 +7,7 @@ function goDeep(obj, _list, n){
     if(!isEmpty(obj)){
      n++;
      for(let name in obj){
-        _list = (goDeep(obj[name],_list, n));
+        _list = (goDeep(obj[name], _list, n)); // (_list = (goDeep(obj[name], _list, n))).push(n);
         _list.push(n);
      }
     }
