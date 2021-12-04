@@ -55,4 +55,39 @@ function depth(obj) {
   arr = clearOut(arr);
   return (arr = goDeep(obj, [], 0)).length != 0 ? Math.max(...arr) : 0;
 }
+
+// class-based approach
+function isEmpty(obj){
+        return Object.keys(obj).length == 0;
+}
+
+class Iterator_d1{
+        constructor(){
+                this.nList = [];
+        }
+  
+        depth(obj, c){
+                if(obj === null || isEmpty(obj)) // "left to right" execution - check if "null" first
+                        return true;
+                if(obj instanceof Object && !isEmpty(obj)){
+                        c++;
+                        for(let name in obj)
+                                if(this.depth(obj[name], c))
+                                        this.nList.push(c);
+                }
+                return false;
+        }
+  
+        get value(){
+                return this.nList;
+        }
+}       
+
+function depth(obj){
+        let iter = new Iterator_d1(), arr;
+        if(obj instanceof Array)
+          return 0;
+        iter.depth(obj, 0);
+        return (arr = iter.value).length != 0 ? Math.max(...arr) : 0;
+}
 */
