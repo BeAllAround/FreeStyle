@@ -87,7 +87,6 @@ function depth(obj){
         let iter = new Iterator_d1(), arr;
         if(obj instanceof Array)
           return 0;
-        iter.depth(obj, 0);
-        return (arr = iter.value).length != 0 ? Math.max(...arr) : 0;
+        return !iter.depth(obj, 0) ? Math.max(...iter.value) : 0;
 }
 */
