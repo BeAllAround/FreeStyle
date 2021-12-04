@@ -113,4 +113,28 @@ function depth(obj){
           return 0;
         return !(arr = _depth(obj, 0, arr))[0] ? Math.max(...arr[1]) : 0;
 }
+
+// another dynamic approach to the latter
+function isEmpty(obj){
+  return Object.keys(obj).length == 0;
+}
+
+function _depth(obj, c, _list){
+  if(obj === null || isEmpty(obj)) // "left to right" execution - check if "null" first
+    return [true, _list[1]];
+  if(obj instanceof Object && !isEmpty(obj)){
+    c++;
+    for(let name in obj)
+      ((_list = _depth(obj[name], c, _list))[0]) ?
+        _list[1].push(c) : 0;
+  }
+  return [false, _list[1]];
+}
+
+function depth(obj){
+  let arr;
+  if(obj instanceof Array)
+    return 0;
+  return !(arr = _depth(obj, 0, [false, []]))[0] ? Math.max(...arr[1]) : 0;
+}
 */
