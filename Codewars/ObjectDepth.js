@@ -89,4 +89,28 @@ function depth(obj){
           return 0;
         return !iter.depth(obj, 0) ? Math.max(...iter.value) : 0;
 }
+
+// the "store-use" approach
+function isEmpty(obj){
+        return Object.keys(obj).length == 0;
+}
+
+function _depth(obj, c, _list){
+                if(obj === null || isEmpty(obj)) // "left to right" execution - check if "null" first
+                  return _list[0] = true, _list;
+                if(obj instanceof Object && !isEmpty(obj)){
+                        c++;
+                        for(let name in obj)
+                                ((_list = _depth(obj[name], c, _list))[0]) ?
+                                        _list[1].push(c) : 0;
+                }
+                return _list[0] = false, _list;
+}
+
+function depth(obj){
+        let arr = [false, []];
+        if(obj instanceof Array)
+          return 0;
+        return !(arr = _depth(obj, 0, arr))[0] ? Math.max(...arr[1]) : 0;
+}
 */
