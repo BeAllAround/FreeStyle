@@ -34,6 +34,42 @@ function objectString(obj, str = ''){
         return str;
 }
 
+function objectString(obj, name, str, n, i, arr = []){
+        if(obj instanceof Object){
+                if(!n)
+                        str+="\"";
+                str+=name;
+                if(!n)
+                        str+="\"";
+                if(!n)
+                        str+=':';
+                str += '{';
+                arr = Object.keys(obj);
+                for(let i = 0; i < arr.length; i++){
+                        str = objectString(obj[arr[i]], arr[i], str, 0, i, arr);
+                        if(i != arr.length-1)
+                                str += ', ';
+                }
+                str += '}';
+
+        }else{
+                str+="\"";
+                str+=name;
+                str+="\"";
+                if(!n)  
+                        str+=':';
+                str+=obj.toString();
+        }
+        return str;
+}       
+
+Object.prototype.toString = function(){
+        return objectString(this, '', '', 1, 0);
+}
+
+
+console.log(({a: {e1: 'FOR', e2: {e3: {h6: (function(){})}, e4: {}}}, b: {c: {d: {}, h: {}}}, e: {}}).toString()); // tests
+
 // printTree({left: {left: {left: null, right:null, value: 5}, right: {left: null, right: null, value: 8}, value: 7},  right: {left: null, right: {left: null, right: null, value: 12}, value: 11}, value: 9}, 1, 1, 0);
 printTree({left: {left: {left: null, right:null, value: 5}, right: {left: null, right: null, value: 8}, value: 7},  right: {left: {left: null, right: null, value: 33}, right: {left: null, right: null, value: 30}, value: 11}, value: 9}, 0, 0);
 
