@@ -23,6 +23,17 @@ function printTree(tree, n, b){
 
 }
 
+function objectString(obj, str = ''){
+        if(obj instanceof Object){
+                str += '{';
+                for(let name in obj)
+                        str = objectString(obj[name], str);
+                str += '}';
+
+        }
+        return str;
+}
+
 // printTree({left: {left: {left: null, right:null, value: 5}, right: {left: null, right: null, value: 8}, value: 7},  right: {left: null, right: {left: null, right: null, value: 12}, value: 11}, value: 9}, 1, 1, 0);
 printTree({left: {left: {left: null, right:null, value: 5}, right: {left: null, right: null, value: 8}, value: 7},  right: {left: {left: null, right: null, value: 33}, right: {left: null, right: null, value: 30}, value: 11}, value: 9}, 0, 0);
 
