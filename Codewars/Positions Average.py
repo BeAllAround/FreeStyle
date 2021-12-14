@@ -10,13 +10,9 @@ def pos_average(s):
             item = list(item);
             item2 = list(item2);
             first, last = 0, 0;
-            for x1 in range(first, len(item)):
-                for j1 in range(last, len(item2)):
-                    if(item[x1] == item2[j1] and x1 == j1):
-                        first = x1+1;
-                        last = j1+1;
-                        c+=1;
-                        break;
+            for x1 in range(len(item)):
+                if(item[x1] == item2[x1]):
+                    c += 1;
             arr.append(c);
             c = 0;
 
@@ -26,12 +22,13 @@ def pos_average(s):
     print('--------------------------------');
     item = list(item);
     item2 = list(item2);
-    last = 0;
+    first, last = 0, 0;
     print(item, item2);
-    for x in range(len(item)):
+    for x in range(first, len(item)):
         for j in range(last, len(item2)):
             if(item[x] == item2[j] and x == j):
                 # del item[x];
+                first = x+1;
                 last = j+1;
                 # del item2[j];
                 c+=1;
