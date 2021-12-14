@@ -9,17 +9,18 @@ def pos_average(s):
             item2 = (s[j]);
             item = list(item);
             item2 = list(item2);
-            last = 0;
-            for x1 in range(len(item)):
+            first, last = 0, 0;
+            for x1 in range(first, len(item)):
                 for j1 in range(last, len(item2)):
                     if(item[x1] == item2[j1] and x1 == j1):
+                        first = x1+1;
                         last = j1+1;
                         c+=1;
                         break;
             arr.append(c);
             c = 0;
 
-    ''' # indivisual algorithm
+    ''' ### main algorithm!!!
     item = s[3];
     item2 = s[5];
     print('--------------------------------');
