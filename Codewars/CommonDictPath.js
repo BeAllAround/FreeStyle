@@ -7,9 +7,13 @@ function checker(v){
     if(_v[0] != v[i][0])
       return '';
     if(_v[0] == v[i][0])
-      if(_v[1] != v[i][1])
+      try{
+         if((_v.match(/(\w+)/g)[0] != v[i].match(/(\w+)/g)[0]))
+          return '/';
+      }catch(error){
         return '/';
-    
+      }
+
   }
   return '$';
 }
@@ -27,17 +31,16 @@ function getCommonDirectoryPath(pathes) {
   for(j = 1; j < pathes.length; j++){
     path1 = pathes[j];
     c = 0, c1 = 0;
-    while(path[c] === path1[c1]){
+    while(path[c] === path1[c1] && c < path.length){ // fixed
       str += path[c];
       c++;
       c1++;
     }
     i = str.length-1;
     while(str[i]!='/')
-      i--;
+          i--;
     str_c = str = (str.slice(0, i+1));
     str = '';
-    break;
   }
   return (str_c);
 }
