@@ -25,9 +25,8 @@ function getCommonDirectoryPath(pathes) {
   str_c = '';
   str = '';
   let j, i; 
-  if((check = checker(pathes)) != '$'){
+  if((check = checker(pathes)) != '$')
     return check;
-  }
   path = pathes[0];
   for(j = 1; j < pathes.length; j++){
     path1 = pathes[j];
