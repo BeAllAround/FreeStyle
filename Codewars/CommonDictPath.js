@@ -24,7 +24,7 @@ function getCommonDirectoryPath(pathes) {
   check = '';
   str_c = '';
   str = '';
-  let j, i;
+  let j, i; 
   if((check = checker(pathes)) != '$'){
     return check;
   }
@@ -32,16 +32,21 @@ function getCommonDirectoryPath(pathes) {
   for(j = 1; j < pathes.length; j++){
     path1 = pathes[j];
     c = 0, c1 = 0;
-    while(path[c] === path1[c1] && c < path.length){ // fixed
+    while(path[c] === path1[c1] && c < path.length){
       str += path[c];
       c++;
       c1++;
-    }
+    } 
     i = str.length-1;
     while(str[i]!='/')
           i--;
     str_c = str = (str.slice(0, i+1));
+    arr.push(str_c);
     str = '';
   }
-  return (str_c);
+  _max = ['', Number.POSITIVE_INFINITY];
+  for(item of arr)
+        if(item.length < _max[1])
+                _max = [item, item.length];
+  return _max[0];
 }
