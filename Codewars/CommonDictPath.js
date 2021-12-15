@@ -1,6 +1,7 @@
-function print(v){
-  console.log(v);
+function print(...v){
+  console.log(...v);
 }
+
 function checker(v){
   _v = v[0];
   for(let i = 1; i < v.length; i++){
