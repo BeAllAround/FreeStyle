@@ -41,6 +41,13 @@ def valid_parentheses(string):
         (_valid(t));
     except Exception:
         return (False);
+    for item in string:
+        if item == '(':
+            c += 1;
+        elif item == ')':
+            c -= 1;
+    if(c != 0):
+        return False;
     return True;
 
 if __name__ == "__main__":
