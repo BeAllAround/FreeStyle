@@ -1,6 +1,6 @@
 function check(i, arr){
   for(let item of arr)
-    if(!(!(i/item).toString().includes('.')))
+    if(((i/item)%1 != 0))
       return false;
   return true;
 }
