@@ -27,3 +27,14 @@ function __add(s, func){
 // test-cases
 console.log((__add('', (a, b)=>a+b))('uh', 'oh')('b', '1')([[['3']]]).valueOf());
 console.log(__add(0, (p, n)=>(typeof n == 'function') ? n(p) : n)([3, o=>o+3]).valueOf());
+/*
+// Codewars
+        const flat = arr => arr.reduce((acc, val) => Array.isArray(val) ? acc.concat(flat(val)) : acc.concat(val), []);
+
+        const hyperReduce = (fn, init) => {
+          const inner = (...args) => hyperReduce(fn, flat(args).reduce(fn, init));
+
+          inner.valueOf = () => init;
+          return inner;
+        };
+*/
