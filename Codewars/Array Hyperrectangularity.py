@@ -33,6 +33,8 @@ def _loop(arr, a):
             if(type(start)!=type(item)):
                 return None;
             elif(isinstance(start, list) and isinstance(item, list)):
+                # if(any(list(filter(lambda x: x, [not check_flat(start, item), not check_depth(start, item), len(start)!=len(item)])))):
+                    # return None;
                 if(not check_flat(start, item)):
                     return None;
                 if(not check_depth(start, item)):
