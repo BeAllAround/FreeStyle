@@ -1,10 +1,12 @@
-function _reduce(arr, func, start){
+function _reduce(arr, func, init){
+        init = ( init === undefined) ? arr[0] : init;
+        var start = (init === undefined) ? 1 : 0
         if(arr instanceof Array)
-                for(let item of arr)
-                        start = _reduce(item, func, start);
+                for(var i = start; i < arr.length; i++)
+                        init = _reduce(arr[i], func, init);
         else
-                start = func(start, arr);
-        return start;
+          init = func(init, arr);
+        return init;
 }
 
 function _add(s, func, ...n){
