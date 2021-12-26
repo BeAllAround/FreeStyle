@@ -7,7 +7,7 @@ def depth(arr, a, n):
     return a;
 
 def check_depth(a1, a2):
-    return max(depth(a1, [], 0)) == max(depth(a2, [], 0));
+    return depth(a1, [], 0) == depth(a2, [], 0); # list().__eq__;
 
 def flat(a1, a):
     if isinstance(a1, list):
@@ -45,7 +45,6 @@ def _loop(arr, a):
                 return None;
             if(_loop(start, a)==None):
                 return None;
-            
             start = item;
     return True;
 
