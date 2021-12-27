@@ -1,4 +1,4 @@
-# algorithm created and coded by Alex 
+# solver created and coded by Alex 
 
 def generate_sequence(lower, upper):
     _list = (list(range(lower, upper)));
