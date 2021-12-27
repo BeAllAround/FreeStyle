@@ -28,7 +28,11 @@ def generate_sequence(lower, upper):
     return arr;
 
 '''
-// bad performance
+#Codewars
+def generate_sequence(lower, upper):
+    return list(range(lower+1, upper, 2)) + list(range(lower, upper, 2))
+    
+# bad performance
 def generate_sequence(lower, upper):
     _list = (list(range(lower, upper)));
     value = None;
