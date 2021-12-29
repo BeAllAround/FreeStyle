@@ -1,3 +1,5 @@
+from functools import cmp_to_key;
+
 def max_(songs, n):
     _max = 0;
     for item in songs:
@@ -5,19 +7,19 @@ def max_(songs, n):
             _max = len(item[n]);
     return _max;
 
-def Sort(e):
-    return len(e[2]);
-
-def Sort2(e):
-    return len(e[2]);
-
-def restructure(songs):
-    obj = {};
-    return obj;
+def _cmp(a, b):
+    if a[2] < b[2]:
+        return -1;
+    if a[2] > b[2]:
+        return 1;
+    if a[0] > (b[0]):
+        return 1;
+    if a[0] < b[0]:
+        return -1;
+    return 0;
 
 def format_playlist(songs):
-    songs.sort(key=Sort);
-    # songs.sort(key=Sort2);
+    songs = sorted(songs, key=cmp_to_key(_cmp));
     _str = '';
     strName, artistName, end = '', '', '';
     name, _time, artist = None, None, None;
@@ -41,12 +43,6 @@ def format_playlist(songs):
         _str += '| ' + item[0] + (' ' * (name-2));
         _str += '| ' + item[1] + ' |';
         _str += ' ' + item[2] + ' ' * (artist-2) + '|\n';
+    end = end.replace('\n', '');
     _str += end;
     return _str
-
-print(format_playlist([
-                    ('Stoned', '3:25', 'King Krule'),
-                    ('Serenade', '3:00', 'Travis Scott'),
-                    ('I love getting high', '5:15', 'NBA 2k20 Soundtrack'),
-                    ('Stuck', '2:54', 'Future'),
-                    ('Night', '5:22', 'Travis Scott')]));
