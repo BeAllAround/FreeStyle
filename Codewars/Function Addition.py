@@ -9,9 +9,9 @@ class FuncAdd:
         global b1;
         if (self.val.__name__) not in [item[0] for item in b1]:
             raise NameError(self.val.__name__ + " should be deleted");
-        b1 = list(filter(lambda x: x[0]==(self.val.__name__), b1));
+        b2 = list(filter(lambda x: x[0]==(self.val.__name__), b1));
         arr = [];
-        for item in b1:
+        for item in b2:
             arr.append(item[1](*args, **kwargs))
         self.node = (b1);
         return tuple(arr);
