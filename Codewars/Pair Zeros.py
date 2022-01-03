@@ -17,6 +17,27 @@ def pair_zeros(arr):
                 modify_size = len(arr_1); # keep the fixed size
         x+=1;
     return arr_1;
+
+def pair_zeros(arr):
+    _arr, inxs, c = [], [], 1;
+    c_inx = [];
+
+    for x in range(len(arr)):
+        if(arr[x] == 0):
+            inxs.append(x);
+            if c == 2:
+                inxs.pop(0);
+                c_inx.extend([*inxs]);
+                inxs = [];
+                c = 1;
+                continue;
+            c += 1;
+
+    for x in range(len(arr)):
+        if x not in c_inx:
+            _arr.append(arr[x]);
+    return _arr;
+
 '''
 # Codewars
 from itertools import count;
