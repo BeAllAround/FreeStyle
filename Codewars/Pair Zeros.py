@@ -19,8 +19,9 @@ def pair_zeros(arr):
     return arr_1;
 '''
 # Codewars
-from itertools import count
+from itertools import count;
+
 def pair_zeros(arr, *args):
     c = count(1)
-    return [elem for elem in arr if elem != 0 or next(c) % 2]
+    return [elem for elem in arr if elem != 0 or next(c) % 2]; # excelent solution and great "left - right" in-code execution!
 '''
