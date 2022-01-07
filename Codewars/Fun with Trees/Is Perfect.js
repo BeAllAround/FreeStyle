@@ -87,6 +87,93 @@ class TreeNode {
   
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+function _treeArray(tree, b, _list, __list){
+        if(tree == null)
+                return;
+        if(__list instanceof Array)
+                __list.push(0);
+        if(tree.left){
+                b = true;
+                __list.push([]);
+                _treeArray(tree.left, false, _list, __list[__list.length-1]);
+                if(!tree.right){
+                        __list[__list.length-1].push(null);
+                }
+        }
+        if(tree.right){
+                if(!b){
+                        __list.push([]);
+                        __list[__list.length-1].push(null);
+                }
+                _treeArray(tree.right, false, _list, __list[__list.length-1]);
+        }
+}
+
+function treeArray(tree){
+        let l1 = [];
+        let l2 = l1;
+        _treeArray(tree, false, l1, l2);
+        return l1;
+}
+
+var assert = require('assert');
+
+class TreeNode {
+
+  constructor(left = null, right = null) {
+    this.left = left;
+    this.right = right;
+  }
+
+  static isPerfect(root) {
+    if(root === null)
+      return true;
+    try{
+      assert.deepEqual(treeArray(root.left), treeArray(root.right));
+      return true;
+    }catch(error){
+      return false;
+    }
+  }
+  
+  static leaf() {
+    return new TreeNode();
+  }
+  
+  static join(left, right) {
+    return new TreeNode().withChildren(left, right);
+  }
+  
+  withLeft(left) {
+    this.left = left;
+    return this;
+  }
+
+  withRight(right) {
+    this.right = right;
+    return this;
+  }
+
+  withChildren(left, right) {
+    this.left = left;
+    this.right = right;
+    return this;
+  }
+
+  withLeftLeaf() {
+    return this.withLeft(TreeNode.leaf());
+  }
+
+  withRightLeaf() {
+    return this.withRight(TreeNode.leaf());
+  }
+
+  withLeaves() {
+    return this.withChildren(TreeNode.leaf(), TreeNode.leaf());
+  }
+  
+}
 
 /*
   // Codewars
