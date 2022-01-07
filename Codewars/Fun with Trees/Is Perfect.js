@@ -1,17 +1,17 @@
 function _treeArray(tree, b, _list, __list){
         if(tree == null)
-                return;
-        if(__list instanceof Array){
-                __list.push(tree.value);
-          
-        }
+          return;
+        if(__list instanceof Array)
+          __list.push(tree.value);
         if(tree.left){
-                b = true;
-                __list.push([]);
-                _treeArray(tree.left, false, _list, __list[__list.length-1]);
+          b = true;
+          __list.push([]);
+          _treeArray(tree.left, false, _list, __list[__list.length-1]);
         }
         if(tree.right){
-                _treeArray(tree.right, false, _list, __list[__list.length-1]);
+          _treeArray(tree.right, false, _list, __list[__list.length-1]);
+          if(!b)
+            __list.push([]);
         }
 }
 
@@ -46,7 +46,7 @@ class TreeNode {
   static isPerfect(root) {
     if(root === null)
       return true;
-    return (depth(treeArray(root.left), [], 0).sum() == depth(treeArray(root.right), [], 0).sum());
+    return depth(treeArray(root.left), [], 0).sum() == depth(treeArray(root.right), [], 0).sum();
   }
   
   static leaf() {
