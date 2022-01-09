@@ -4,44 +4,20 @@ def pop(arr):
     except IndexError:
         return None;
     
-def _use(_arr, n):
-    s = '';
-    __arr = [];
-    _pop = pop(_arr);
-    __pop = pop(_arr);
-    while(_pop!=None and __pop != None):
-        for item in _pop:
-            for jtem in __pop:
-                s+= item + jtem;
-                __arr.append(s);
-                s = '';
-        _pop = pop(_arr);
-        __pop = pop(_arr);
-            
-    return __arr;
-    
-def crop(arr):
+def produce(arr):
     l1 = [];
-    _arr = list(arr);
-    l = (_use(arr, 0));
-    try:
-        pop(_arr);
-        pop(_arr);
-    except IndexError:
-        pass;
-    if(len(_arr)==0):
-        return l;
-    l_ = pop(_arr);
-    while(l_!=None):
-        for item in l:
+    l2 = pop(arr);
+    l_ = pop(arr);
+    while l_ != None:
+        for item in l2:
             for jtem in l_:
                 l1.append(item+jtem)
-        l = list(l1);
-        l_ = pop(_arr);
+        l2 = list(l1);
+        l_ = pop(arr);
         if(l_ == None):
-            return list(set(l));
+            return l2;
         l1 = [];
-
+        
 def get_pins(observed):
     pins = {1: [1,2, 4], 2: [1,2, 3, 5], 3: [3,2, 6], 4: [1, 4,5,7], 5: [2, 4,5, 6, 8], 6:[3, 5,6, 9], 7: [4,7, 8], 8: [5, 7,8, 9, 0], 9: [8, 6, 9], 0:[0,8]}
     arr = [];
@@ -58,7 +34,8 @@ def get_pins(observed):
                 for k in jtem:
                     _arr.append(item+k)
         return _arr;
-    arr = crop(arr);
+    
+    arr = produce(arr);
     
     for item in use:
         for jtem in arr:
