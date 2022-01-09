@@ -27,20 +27,7 @@ def get_pins(observed):
     use = (arr).pop(0);
     if(len(arr) == 0):
         return use;
-    _arr = [];
-    if(len(arr) == 1):
-        for item in use:
-            for jtem in arr:
-                for k in jtem:
-                    _arr.append(item+k)
-        return _arr;
-    
-    arr = produce(arr);
-    
-    for item in use:
-        for jtem in arr:
-            _arr.append(item+jtem);
-    return _arr;
+    return produce([use, *arr]);
 
 '''
     # Codewars
