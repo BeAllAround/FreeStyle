@@ -23,7 +23,7 @@ std::vector<T> _execute(Types...args){
 
 int main(){
 	// std::vector<int> v;
-	auto v = _execute<int>(1, 4, 5, 6068, 800);
+	auto v = _execute<int>(1, 4, 5, 6068, 800); // or, more practically, std::vector<int>({1, 4, 5, 50});
 	for(auto item : v)
 		std::cout << item << std::endl;
 	return 0;
