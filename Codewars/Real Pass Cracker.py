@@ -23,11 +23,14 @@ def produce_check(arr, hash):
         l1.clear();
     raise "Not found";
     
+### codee in 1.8211274147033691    
 def password_cracker(hash):
     return produce_check([string.ascii_lowercase for x in range(5)], hash);
   
   '''
     # Codewars
+    ### codee in 1.635596513748169
+
     import hashlib
     import itertools
 
