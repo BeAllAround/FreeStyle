@@ -16,6 +16,7 @@ char *alphabet_position(const char *text) {
     }
     text++;
   }
+  // free(_s); // -fsanitize=leak
   s[l-1] = 0;
   return s;
 }
