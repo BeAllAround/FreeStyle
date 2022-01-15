@@ -11,19 +11,18 @@ def code(strng):
 def decode(string):
     dic = {"10": "0", "11": "1", "0110": "2", "0111": "3", "001100": "4", "001101": "5", "001110": "6", "001111": "7", "00011000": "8", "00011001": "9"}
     i = 0;
-    arr = [];
+    s = '';
     _str = '';
     while i < len(string):
         _str += string[i];
         if len(_str) >= 2:
-            for item in dic:
-                try:
-                    arr.append(dic[_str]);
-                    _str = '';
-                except KeyError:
-                    continue;
+            try:
+                s += dic[_str];
+                _str = '';
+            except KeyError:
+                pass;
         i += 1;
-    return ''.join(arr);
+    return s;
   
 '''
     # Codewars
