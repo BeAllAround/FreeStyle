@@ -1,9 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #include <iostream>
 #include <sstream>
 #include <vector>
+
+#define start_time clock_t start = clock();
+#define end_time printf("[Cpu_time_used: %f]\n", ((double) (clock() - start)) / CLOCKS_PER_SEC);
 
 
 struct Node{
@@ -120,10 +124,14 @@ int main(){
 	int i1 = 20;
 	int i2 = 300;
 	int i3 = 30;
+	int *m = (int*)malloc(1000000);
+	long long l = 0;
+	start_time;
 
-	for(int i = 0; i < 100; i++){
-		append(n, i);
-	}
+	for(int i = 0; i < 100000; i++)
+		m[l++] = i;
+
+	// append(n, i);
 
 	// tests
 	/*
@@ -139,6 +147,8 @@ int main(){
 	remove(n, 94);
 	remove(n, 26);
 	*/
-	std::cout << n << std::endl;
+	std::cout << m[99991] << std::endl;
+
+	end_time;
 	return 0;
 }
