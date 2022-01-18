@@ -8,6 +8,11 @@ void inAction(){
 	}
 }
 int main(){
-	inAction();
+	int i;
+	start_time;
+	// inAction();
+	for(i = 0; i < 1000000; i++)
+		printf("%d\n", i);
+	end_time;
 	return 1;
 }

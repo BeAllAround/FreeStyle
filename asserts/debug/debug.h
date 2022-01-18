@@ -27,8 +27,8 @@ extern void __pause();
 
 #define RESET __c = 0
 
-#define start_time clock_t start = clock();
-#define end_time printf("[Cpu_time_used: %f]\n", ((double) (clock() - start)) / CLOCKS_PER_SEC);
+#define start_time clock_t s_t_a_r_t = clock();
+#define end_time printf("[Cpu_time_used: %f]\n", ((double) (clock() - s_t_a_r_t)) / CLOCKS_PER_SEC);
 
 void __pause(){
 	char s[2];
