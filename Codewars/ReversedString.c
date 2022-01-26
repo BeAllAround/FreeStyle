@@ -18,10 +18,8 @@ char *strrev (char *str)
   char *s1 = str, *s2 = str, *s3 = malloc(strlen(str) + sizeof(char*));
   int l = 0;
   while(*++s2 != 0);
-  while(*str != 0){
+  while(*str++ != 0)
     s3[l++] = *--s2;
-    str++;
-  }
   s3[l] = 0;
   return s3;
 }
