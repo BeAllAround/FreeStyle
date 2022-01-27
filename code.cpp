@@ -1,30 +1,29 @@
 #include <iostream>
-#include <vector>
+#define _FREE(v) delete[]v
+
+enum class Types {Option1, Option2, Option3, Option4};
 
 
 template<class T>
-std::vector<T> execute(std::vector<T>& v, T item){
-	v.push_back(item);
-	return v;
+void _copy(T *start, T *end, T *dest){ // (void *start, void *end, void *dest, size_t size) // since "void" assigns the entire new pointer address, this behavior in C is not possible and thus, we pass "size" in the function
+	while(start != end)
+		*dest++ = *start++;
 }
-
-template<class T, class...Types>
-std::vector<T> execute(std::vector<T>& v, T item, Types...args){
-	v.push_back(item);
-	return execute(v, args...);	
-}
-
-template<class T, class...Types>
-std::vector<T> _execute(Types...args){
-	std::vector<T> v;
-	return execute(v, args...);
-}
-
 
 int main(){
-	// std::vector<int> v;
-	auto v = _execute<int>(1, 4, 5, 6068, 800); // or, more practically, std::vector<int>({1, 4, 5, 50});
-	for(auto item : v)
-		std::cout << item << std::endl;
+	int *n = new int[3];
+	int *n1 = new int[3];
+	size_t size = 0;
+	n[size++] = 1;
+	n[size++] = 4;
+	n[size++] = 2;
+	_copy(n, n + size, n1); 
+	std::cout << "--------------------" << std::endl;
+	_FREE(n);
+	for(int i = 0; i < size; i++)
+		std::cout << n1[i] << std::endl;
+	std::cout << "--------------------" << std::endl;
+	_FREE(n1);
+
 	return 0;
 }
