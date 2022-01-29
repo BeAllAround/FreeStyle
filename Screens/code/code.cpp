@@ -39,8 +39,7 @@ void _insert(T *&data, long index, size_t& size, T item){ // check the types?
 }
 
 int main(){
-	int *n = new int[3];
-	int *n1{nullptr};
+	int *n = new int[3], *n1{nullptr};
 	size_t size = 0;
 	n[size++] = 1;
 	n[size++] = 4;
