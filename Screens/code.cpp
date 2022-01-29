@@ -26,7 +26,7 @@ void _insert(T *&data, unsigned index, size_t& size, T item){
 		delete[]data;
 		_copy(data_c, data_c + size, data = new T[size]);
 	}else{
-		_copy(data + 0, data + index, data_c);
+		_copy(data, data + index, data_c);
 		*(data_c + index++) = item;
 		_copy(data + index-1, data + size++, data_c + index);
 		delete[]data;
@@ -42,7 +42,7 @@ int main(){
 	n[size++] = 1;
 	n[size++] = 4;
 	n[size++] = 2;
-	_insert(n, 4, size, 5);
+	_insert(n, 2, size, 5);
 	// _insert(n, 0, size, 5);
 	// std::cout << size << std::endl;
 	// _insert(n, 3, size, 65);
