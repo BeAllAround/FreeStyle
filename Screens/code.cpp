@@ -18,8 +18,10 @@ void _copy(T *start, T *end, T *dest){ // (void *start, void *end, void *dest, s
 
 #define __CLEAN delete[] data_c;
 template<class T>
-void _insert(T *&data, unsigned index, size_t& size, T item){
+void _insert(T *&data, long index, size_t& size, T item){ // check the types?
 	T *data_c = new T[size + 1];
+	if(index < 0)
+		index = 0;
 	if(index >= size){
 		_copy(data, data + size, data_c);
 		*(data_c + size++) = item;
@@ -42,7 +44,7 @@ int main(){
 	n[size++] = 1;
 	n[size++] = 4;
 	n[size++] = 2;
-	_insert(n, 2, size, 5);
+	_insert(n, 5, size, 5);
 	// _insert(n, 0, size, 5);
 	// std::cout << size << std::endl;
 	// _insert(n, 3, size, 65);
