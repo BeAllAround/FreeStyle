@@ -15,7 +15,8 @@ char *strrev (char *str)
 
 char *strrev (char *str)
 {
-  char *s1 = str, *s2 = str, *s3 = malloc(strlen(str) + sizeof(char*));
+  char *s1, *s2, *s3 = malloc(strlen(str) + sizeof(char*));
+  s1 = s2 = str;
   int l = 0;
   while(*++s2 != 0);
   while(*str++ != 0)
