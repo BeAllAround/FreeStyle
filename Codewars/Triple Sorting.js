@@ -1,3 +1,12 @@
+function __sort(arr){
+        let i, j, temp;
+        for(i = 0; i < arr.length; i++)
+                for(j = i; j < arr.length; j++)
+                        if(arr[i] > arr[j])
+                                temp = arr[i], arr[i] = arr[j], arr[j] = temp;
+        return arr;
+}
+
 function len(value){
   return value.length;
 }
