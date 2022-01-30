@@ -16,6 +16,17 @@ char *string(){
 	return m;
 }
 
+/*
+	int *m = malloc(100);
+	int l = 0;
+	m[l++] = 1;
+	m[l++] = 2;
+	m[l++] = 3;
+	for(int *p = m; p != m + l; p++)
+		// use (*p)
+	free(m); // valid
+*/
+
 int main(){
 	long l = 0, l1 = 0;
 	start_time;
