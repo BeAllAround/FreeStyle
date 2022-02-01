@@ -12,7 +12,7 @@ def _find(arr):
     for j in arr[1:]:
         if(item+2 == j):
             arr1.append(item+1);
-        elif(j > item+3 or j+3 < item or item == j):
+        elif(j > item+1 or j+1 < item or item == j):
             return -1;
         item = j;
     if(len(arr1) == 0 or len(arr1) > 1):
@@ -20,13 +20,13 @@ def _find(arr):
     return arr1[0]
     
 def missing(s):
-    arr = [];
-    arr1 = [];
-    item = None
+    arr = []
+    arr1 = []
+    item = None;
     for x in range(1, 10):
-        arr = list(_iter(s, x));
+        arr = list(_iter(s, x))
         if(check_sort(arr)):
-            break
+            break;
     if(_find(arr) != -1):
         return _find(arr)
     else:
