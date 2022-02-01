@@ -6,27 +6,27 @@ def check_sort(arr):
     return arr == sorted(arr);
 
 def _find(arr):
-    arr = list(map(int, arr));
-    item = arr[0];
-    arr1 = [];
+    arr = list(map(int, arr))
+    item = arr[0]
+    arr1 = []
     for j in arr[1:]:
         if(item+2 == j):
             arr1.append(item+1);
-        elif(j > item+1 or j+1 < item or item == j):
-            return -1;
-        item = j;
+        elif not item < j:
+            return -1
+        item = j
     if(len(arr1) == 0 or len(arr1) > 1):
-        return -1;
-    return arr1[0]
+        return -1
+    return arr1[0];
     
 def missing(s):
-    arr = []
-    arr1 = []
-    item = None;
+    arr = [];
+    arr1 = [];
+    item = None
     for x in range(1, 10):
-        arr = list(_iter(s, x))
+        arr = list(_iter(s, x));
         if(check_sort(arr)):
-            break;
+            break
     if(_find(arr) != -1):
         return _find(arr)
     else:
