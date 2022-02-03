@@ -87,6 +87,8 @@ def missing(s):
 
 
 '''
+# regex generation would be nice
+
 def _iter(s, _split):
     for x in range(0, len(s), _split):
         yield (s[x : x+_split]);
