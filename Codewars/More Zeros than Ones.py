@@ -12,5 +12,5 @@ def more_zeros(s):
     for item in s:
         ones, zeros = (reduce(f, [*bin(ord(item))[2:]], [0, 0]))
         if ones < zeros and item not in arr:
-            arr.append(item)
+            arr += [item] # arr = arr + [item]
     return arr
