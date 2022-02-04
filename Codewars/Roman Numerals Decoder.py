@@ -18,10 +18,11 @@ def solution(roman):
                 for item in arr:
                     _num -= item
                 _num += t
+                arr.clear()
             else:
                 _num += int(_dic1[s])
         except:
-            arr = []
+            arr.clear()
             s = ''
             continue
         i += 1
