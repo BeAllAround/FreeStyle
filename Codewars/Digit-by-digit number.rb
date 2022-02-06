@@ -75,3 +75,21 @@ class Num
     Num.new('0')
   end
 end
+
+=begin
+# Codewars
+  Num = 0
+
+  class Integer
+    def zero;  self * 10 + 0 end
+    def one;   self * 10 + 1 end
+    def two;   self * 10 + 2 end
+    def three; self * 10 + 3 end
+    def four;  self * 10 + 4 end
+    def five;  self * 10 + 5 end
+    def six;   self * 10 + 6 end
+    def seven; self * 10 + 7 end
+    def eight; self * 10 + 8 end
+    def nine;  self * 10 + 9 end
+  end
+=end
