@@ -6,5 +6,5 @@ def sort_array(source_array):
         if item % 2 == 0:
             arr_even.append([x, item])
     for item in arr_even:
-        _l.insert(item[0], item[1])
+        _l.insert(*item) # (item[0], item[1])
     return _l
