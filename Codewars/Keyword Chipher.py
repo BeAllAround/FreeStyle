@@ -39,3 +39,11 @@ class keyword_cipher(object):
             except:
                 _str += item;
         return _str;
+'''
+    # Codewars
+    class keyword_cipher(object):
+        def __init__(self, abc, kw):
+            key = ''.join(dict.fromkeys(kw + abc).keys())
+            self.encode = lambda s: s.translate(str.maketrans(abc, key))
+            self.decode = lambda s: s.translate(str.maketrans(key, abc))
+'''
