@@ -20,7 +20,6 @@ class keyword_cipher(object):
     def encode(self, plain):
         _str = '';
         inxes = [];
-        _c = (len(self.abc) - len(self._abc));
         for item in plain:
             try:
                 x = (self._abc.index(item));
