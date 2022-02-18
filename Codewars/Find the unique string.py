@@ -1,12 +1,11 @@
 def equal(item, item2):
     c = 0;
-    if item == '':
-        return True;
+    item = list(set([*item]));
+    item2 = list(set([*item2]));
     for i in item:
         if i in item2:
             c += 1;
-    return c == len(item);
-
+    return c == len(item2);
 
 def _f(s):
     if s == '':
@@ -23,7 +22,7 @@ def every(arr):
         if item != j:
             return False;
     return True;
-        
+
 def find_uniq(arr):
     arr_c = list(map(_f, arr));
     item = arr_c.pop(0);
