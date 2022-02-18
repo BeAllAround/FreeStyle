@@ -19,9 +19,10 @@ def every(arr):
     except IndexError:
         return True
     for j in a:
-        if item != j:
-            return False;
-    return True;
+        if not equal(item, j):
+            return False
+        item = j
+    return True
 
 def find_uniq(arr):
     arr_c = list(map(_f, arr));
