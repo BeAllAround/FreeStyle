@@ -7,7 +7,7 @@ def last_digit(lst):
         return lst[0] % 10;
     l2 = lst.pop()
     l = lst.pop()
-    n = 1000000000000000000000000000
+    n = 1000000000000000000000000000 # n = int("1" +  ("0000000000000000000000" * 20))
     _l = pow(l, l2, n)
     num = pow(lst.pop(), _l, n);
     while len(lst) != 0:
