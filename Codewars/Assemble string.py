@@ -2,7 +2,6 @@ def assemble(input):
     if(len(input) == 0):
         return ''
     arr = [*('*' * len(input[0]))]
-    _a = []
     for item in input:
         for x in range(len(arr)):
             if item[x] != '*' and arr[x] == '*':
