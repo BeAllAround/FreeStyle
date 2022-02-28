@@ -2,12 +2,16 @@ def validate(n):
     arr_n = list(map(int, [*str(n)]))
     b = len(arr_n) % 2 == 0
     _start = 0
+    c = 0
     if b:
         arr_n[0] = arr_n[0] * 2
         _start = 1
     for x in range(_start, len(arr_n)):
-        if x%2 == 0 and x != 0:
+        if c == 1 and x != 0:
             arr_n[x] = arr_n[x] * 2
+            c = 0
+            continue
+        c += 1
     for x in range(len(arr_n)):
         if arr_n[x] > 9:
             arr_n[x] = sum(list(map(int, [*str(arr_n[x])])))
