@@ -1,12 +1,11 @@
 def find(needle, haystack):
     s = ''
     for x in range(len(haystack)):
+        if x+len(needle) > len(haystack):
+            return -1
         for j in range(0, len(needle)):
-            if x+j < len(haystack):
-                if(needle[j] == haystack[x+j] or needle[j] == '_'):
-                    s += needle[j]
-            else:
-                return -1
+            if(needle[j] == haystack[x+j] or needle[j] == '_'):
+                s += needle[j]
         if s == needle:
             return x
         s = ''
