@@ -5,6 +5,8 @@ def find(needle, haystack):
             if x+j < len(haystack):
                 if(needle[j] == haystack[x+j] or needle[j] == '_'):
                     s += needle[j]
+            else:
+                return -1
         if s == needle:
             return x
         s = ''
