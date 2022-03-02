@@ -18,14 +18,13 @@ def by_state(str): # boy did it get knotty here...
         k = (item.split(',')[-1].strip().split(' '))[-1];
         arr_2.append([k, x]);
         arr_names.append(k);
-    arr_3 = sorted(arr_2)
     arr_names = list(set(arr_names));
     arr_names.sort();
     while(len(arr_names) != 0 and arr_names[0] == ''):
         arr_names.pop(0);
     for name in arr_names:
         s += ' ' + name + '\r\n';
-        for k, inx in arr_3:
+        for k, inx in arr_2:
             if k == name:
                 s += '..... ';
                 s += arr[inx] + '\r\n'
