@@ -33,12 +33,7 @@ function add(a, b) { // getting knotty, as usual...
       }else{
       a[a_l] = a[a_l] + Number(c.toString()[0]);
       a[a_l+1] = Number(c.toString()[1]);
-      let __c = -1;
-        while((c = a[a_l-__c]) >= 10){
-          a[a_l-__c-1] = a[a_l-__c-1] + Number(c.toString()[0]);
-          a[a_l-__c] = Number(c.toString()[1])
-        };
-       };
+     }
     }else
       a[a_l+1] = c;
   }
