@@ -1,6 +1,6 @@
-function backIndex(arr, item){
+function backIndex(arr){
   for(let i = arr.length-1; i >= 0; i--)
-    if(arr[i] == item)
+    if(arr[i] >= 10)
       return i;
   return -1;
 }
@@ -38,14 +38,14 @@ function add(a, b) { // getting knotty, as usual...
       a[a_l+1] = c;
   }
   
-  let index = backIndex(a, 10), _s;
+  let index = backIndex(a), _s;
   if(a[0] >= 10)
     return a.join('');
   while(index != -1){
     _s = a[index].toString();
     a[index-1] = a[index-1] + Number(_s[0]);
     a[index] = Number(_s[1]);
-    index = backIndex(a, 10);
+    index = backIndex(a);
     if(a[0] >= 10)
       break;
   }
