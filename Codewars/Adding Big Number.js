@@ -44,6 +44,8 @@ function add(a, b) { // getting knotty, as usual...
   }
   
   let index = backIndex(a, 10), _s;
+  if(a[0] >= 10)
+    return a.join('');
   while(index != -1){
     _s = a[index].toString();
     a[index-1] = a[index-1] + Number(_s[0]);
