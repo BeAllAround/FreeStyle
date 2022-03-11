@@ -18,6 +18,29 @@ def num_to_ip(num):
         ip[x] = str(int(ip[x], 2));
     return '.'.join(ip);
 
+# or!
+
+def int_to_bin(num):
+    n = bin(num)[2:];
+    return ('0' * (8 - len(n)))  + n;
+
+def Bint_to_bin(num):
+    n = int_to_bin(num);
+    return ('0' * (32 - len(n))) +n;
+
+def ip_to_num(ip):
+    ip = ip.split('.');
+    for x in range(len(ip)):
+        ip[x] = int_to_bin(int(ip[x]));
+    return int(''.join(ip), 2);
+
+def num_to_ip(num):
+    s = (Bint_to_bin(num));
+    ip = [s[x:x+8] for x in range(0, len(s), 8)];
+    for x in range(len(ip)):
+        ip[x] = str(int(ip[x], 2));
+    return '.'.join(ip);
+
 '''
   # Codewars
   from ipaddress import IPv4Address
