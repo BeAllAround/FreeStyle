@@ -9,7 +9,10 @@ def _stringify(_num):
         return str(_num) + _dict[_num];
     except KeyError:
         try:
-            return str(_num) + _dict[int(str(_num)[(len(str(_num))-n):len(str(_num))])];
+            try:
+                return str(_num) + _dict[int(str(_num)[(len(str(_num))-n):len(str(_num))])];
+            except KeyError:
+                return str(_num) + _dict[int(str(_num)[(len(str(_num))-1):len(str(_num))])];
         except KeyError:
             return str(_num) + 'th';
 
