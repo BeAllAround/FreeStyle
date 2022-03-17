@@ -1,4 +1,4 @@
-alphanumeric = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:"
+alphanumeric = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
 
 def alpha_n(message):
     for char in message:
@@ -53,7 +53,7 @@ def qr_encode(message):
         _p = prefix(ALPHA, message);
         for x in range(len(chars)):
             if len(chars[x]) == 2:
-                c = alphanumeric.index(chars[x][0]) * 45 + alphanumeric.index(chars[x][1])
+                c = alphanumeric.index(chars[x][0]) * 45 + alphanumeric.index(chars[x][1]);
                 chars[x] = convert(c, 11);
             elif len(chars[x]) == 1:
                 c = alphanumeric.index(chars[x][0]);
