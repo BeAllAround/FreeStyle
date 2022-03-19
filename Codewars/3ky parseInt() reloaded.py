@@ -18,8 +18,11 @@ def clear_out(nums, _n):
     l = pop(nums);
     while len(nums) != 0 and l != None:
         l1 = [*l1];
-        while len(l1)!=0 and l1[-1] == '0':
-            l1.pop();
+        for _ in range(len(l)):
+            if len(l1) != 0 and l1[-1] == '0':
+                l1.pop();
+            else:
+                break;
         n.append(''.join(l1) + l);
         l1 = n[-1];
         l = pop(nums);
