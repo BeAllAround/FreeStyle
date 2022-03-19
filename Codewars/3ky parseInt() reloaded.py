@@ -72,6 +72,24 @@ def parse_int(string):
     if len(arr) == 0:
         return 0;
     return int(clear_out(arr, d));
+'''
+# test cases
+
+test.assert_equals(parse_int('one'), 1)
+test.assert_equals(parse_int('twenty'), 20)
+test.assert_equals(parse_int('two hundred three thousand and forty-six'), 203046)
+test.assert_equals(parse_int('two hundred three thousand'), 203000)
+test.assert_equals(parse_int('five hundred thousand five hundred'), 500500)
+test.assert_equals(parse_int('six hundred six thousand five hundred'), 606500)
+test.assert_equals(parse_int('six hundred thousand five hundred'), 600500)
+test.assert_equals(parse_int('six hundred thousand five'), 600005)
+test.assert_equals(parse_int('six hundred thousand and five'), 600005)
+test.assert_equals(parse_int('six hundred thousand'), 600000)
+test.assert_equals(parse_int('six hundred sixty-six thousand five hundred and one'), 666501)
+test.assert_equals(parse_int('six hundred sixty-six thousand five hundred and thirty-three'), 666533)
+test.assert_equals(parse_int('six hundred sixty thousand five hundred thirty-three'), 660533)
+test.assert_equals(parse_int('two hundred forty-six'), 246)
+'''
 
 '''
 #Codewars
