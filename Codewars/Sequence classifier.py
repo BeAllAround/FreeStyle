@@ -9,18 +9,14 @@ def unordered(arr):
 
 def not_increase(arr):
     item = arr[0];
-    a = [];
-    c = 0;
     b = False;
     for j in arr[1:]:
-        if item > j:
-            a.append(True);
         if item == j:
             b = True;
-        if item < j:
-            a.append(False);
+        elif item < j:
+            return False;
         item = j;
-    return all(a) and b;
+    return b;
 
 def s_d(arr):
     item = arr[0];
@@ -33,41 +29,32 @@ def s_d(arr):
 
 def n_d(arr):
     item = arr[0];
-    c = 1;
     b = False;
-    a = [];
     for j in arr[1:]:
-        if item >= j:
-            a.append(True);
-        if item == j:
-            b = True;
         if j < item:
-            a.append(False);
+            return False;
+        elif j == item:
+            b = True;
         item = j;
-    return all(a) and b;
+    return b;
 
 def s_i(arr):
     item = arr[0];
     c = 1;
     for j in arr[1:]:
         if j > item:
-            c += 1;
+            pass;
+        else:
+            return False;
         item = j;
-    return c == len(arr); 
+    return True;
 
-def sequence_classifier(arr):
-    if constant(arr):
-        return 5;
-    if not_increase(arr):
-        return 4;
-    if s_d(arr):
-        return 3;
-    if n_d(arr):
-        return 2;
-    if s_i(arr):
-        return 1;
-    if unordered(arr):
-        return 0;
+def sequence_classifier(arr): # a crafty way to write it
+    bools = [constant(arr), not_increase(arr), s_d(arr), n_d(arr), s_i(arr), unordered(arr)];
+    for i, b in enumerate(bools):
+        if b:
+            return len(bools)-i-1;
+    return -1;
 
 '''
 # Codewars
