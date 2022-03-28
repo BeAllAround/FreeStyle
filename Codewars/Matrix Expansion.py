@@ -18,7 +18,7 @@ def expansion(matrix, n):
             _i = n;
             for _ in range(n):
                 _matrix[x][-_i] = (sum(_matrix[x][:-_i]));
-                _i -=1;
+                _i -= 1;
         else:
             c = 0;
             _s = 0;
@@ -26,19 +26,18 @@ def expansion(matrix, n):
             while c < len(_matrix[x]):
                 for j in range(0, x):
                     _s += _matrix[j][c]
-                c+=1;
+                c += 1;
                 _arr.append(_s);
                 _s = 0;
-            c = 0;
+            c = 0; # reset
             _s = 0;
             for j in range(0, x):
                 _s += _matrix[j][c]
-                c+=1;
+                c += 1;
             _arr[c] = _s;
-            if c != len(_arr)-1:
-                c+=1;
-                while c < len(_matrix[x]):
-                    _arr[c] = sum(_arr[:c]);
-                    c+=1;
+            c += 1;
+            while c < len(_matrix[x]):
+                _arr[c] = sum(_arr[:c]);
+                c += 1;
             _matrix[x] = list(_arr);
     return _matrix;
