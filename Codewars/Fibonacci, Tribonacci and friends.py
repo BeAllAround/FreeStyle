@@ -5,4 +5,4 @@ def Xbonacci(signature,n):
         arr.append(sum(arr[-c:])); # the last c elements
     return arr;
 
-# rule => (n == |signature|)
+# Xbonacci(signature, n) => (n == |signature|)
