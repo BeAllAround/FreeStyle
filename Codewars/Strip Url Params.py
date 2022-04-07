@@ -47,4 +47,12 @@ def strip_url_params(url, strip=None):
     new = parse._replace(query=query)
     
     return new.geturl()
+
+import re; # *!!!
+def strip_url_params(url, remove=[]):
+    base, *psa = re.split('\?|\&', url)
+    done = set(remove)
+    psf = (k+'='+v for k,v in (p.split('=') for p in psa)
+          if not (k in done or done.add(k)))
+    return base+'?'+'&'.join(psf) if psa else base
 '''
