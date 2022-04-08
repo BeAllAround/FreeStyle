@@ -5,11 +5,11 @@ def ips_between(start, end):
     arr1 = [];
     arr2 = [];
     for item in start:
-        arr1.append(item * 256**c);
+        arr1.append(item * pow(256, c));
         c -= 1;
     c = 3;
     for item in end:
-        arr2.append(item * 256**c);
+        arr2.append(item * pow(256, c));
         c -= 1;
     return sum(arr2) - sum(arr1);
 
