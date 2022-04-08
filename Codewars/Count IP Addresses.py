@@ -1,15 +1,11 @@
 def ips_between(start, end):
     start = list(map(int, start.split('.')));
     end = list(map(int, end.split('.')));
+    arr1, arr2 = [], [];
     c = 3;
-    arr1 = [];
-    arr2 = [];
-    for item in start:
-        arr1.append(item * pow(256, c));
-        c -= 1;
-    c = 3;
-    for item in end:
-        arr2.append(item * pow(256, c));
+    for x in range(len(start)):
+        arr1.append(start[x] * pow(256, c));
+        arr2.append(end[x] * pow(256, c));
         c -= 1;
     return sum(arr2) - sum(arr1);
 
