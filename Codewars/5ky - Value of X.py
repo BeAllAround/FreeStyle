@@ -79,7 +79,6 @@ def solve(eq: str):
         start = -1;
     l = str(_eval(eq.split('=')[end]));
     for i in eq.split('=')[start]:
-        # if i == ' ': continue;
         if i == '-':
             l += '+';
         elif i == '+':
@@ -90,13 +89,15 @@ def solve(eq: str):
                 t = l[-1];
                 l1 = [t];
                 l = ''.join(l[:-1]);
+            else:
+                l1 = ['-'];
         else:
             l += i;
-    if len(l1) != 0:
-        l = opp(l1[0]) + str(_eval(l));
-        return _eval(l);
-    else:
-        return _eval(l);
+    eq = eq.replace('x', '0');
+    l2 = _eval(eq.split('=')[end]);
+    l3 = _eval(eq.split('=')[start]);
+    l = opp(l1[0]) + str(l2 - l3);
+    return _eval(l);
       
 '''
 # Codewars
