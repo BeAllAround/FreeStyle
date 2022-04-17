@@ -66,6 +66,7 @@ def opp(s):
         return '+';
 
 def solve(eq: str):
+    eq = ''.join(eq.split(' '));
     if eq[:1] != '-':
         eq = '+' + eq;
     l1 = [];
@@ -78,7 +79,7 @@ def solve(eq: str):
         start = -1;
     l = str(_eval(eq.split('=')[end]));
     for i in eq.split('=')[start]:
-        if i == ' ': continue;
+        # if i == ' ': continue;
         if i == '-':
             l += '+';
         elif i == '+':
