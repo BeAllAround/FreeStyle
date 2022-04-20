@@ -126,6 +126,10 @@ prim (bool get)
   case MINUS: {
     return (-expr (true));
   }
+  // case PLUS: { // new addition
+        // return (+expr(true));
+  // }
+
   case NUMBER: {
     double v = number_value;
     get_token ();
