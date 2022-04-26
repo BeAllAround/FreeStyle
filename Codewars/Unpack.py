@@ -1,25 +1,19 @@
-def one(arr):
-    for BOOL in arr:
-        if BOOL:
-            return True
-    return False
-
-def _unpack(l, _list):
-    if one([isinstance(l, _type) for _type in [list, tuple, set]]):
-        for item in l:
-            _list = _unpack(item, _list)
-    elif isinstance(l, dict):
-        for key in l.keys():
-            _list.append(key)
-            _list = _unpack(l[key], _list)
-    else:
-        _list.append(l)
-    return _list
+def d(l, _l):
+    try:
+        if not type(l) == str:
+            for item in l:
+                d(item, _l);
+                if type(l) == dict:
+                    d(l[item], _l);
+        else:
+            _l.append(l);
+    except TypeError:
+        _l.append(l);
 
 def unpack(l):
-    for _ in range(2):
-        l = _unpack(l, [])
-    return l
+    v = [];
+    d(l, v);
+    return v;
 
 '''
   # Codewars
