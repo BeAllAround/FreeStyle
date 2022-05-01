@@ -24,9 +24,10 @@ int is_valid_ip(const char * addr) {
   while((c = *addr++) != 0){
     if(c == '.'){
       *m = 0;
-      if(!is_digit(m_c))
-        return 0;
+      l = is_digit(m_c);
       free(m_c);
+      if(!l)
+        return 0;
       m = m_c = malloc(10);
     }else
       *m++ = c;
