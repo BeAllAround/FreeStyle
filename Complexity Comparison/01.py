@@ -30,10 +30,10 @@ class _Node:
         head = self;
         if head and head.v == value:
             self = self.next;
-            self.previous = None;
             if not self:
                 return None;
             tail = self;
+            self.previous = None;
             while tail:
                 if tail.next == None:
                     break;
@@ -115,7 +115,7 @@ n._append(107);
 n = n.remove(107);
 n = n.remove(101);
 n = n.remove(1);
-print('AFTER: ', n.toObject());
+print('AFTER: ', n.toObject()); # n.toObject();
 # print(n.toObject());
 # print(n.toObject());
 print(time() - start);
