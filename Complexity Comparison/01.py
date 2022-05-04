@@ -19,14 +19,14 @@ class _Node:
             n = n.next;
         n.next = _Node(value);
 
-    def _append(self, value): # O(n);
+    def _append(self, value) -> None: # O(n);
         n = _Node(value);
         pre = _Node(self.tail.v); #
         self.tail.next = n;
         self.tail = self.tail.next;
         self.tail.previous = pre;
 
-    def remove(self, value):
+    def remove(self, value) -> object:
         head = self;
         if head and head.v == value:
             self = self.next;
@@ -59,12 +59,14 @@ class _Node:
             if head.next == None:
                 self.tail = head;
             head = head.next;
+        '''
         while head:
             if head.previous == None:
                 self.next = head;
                 break;
             else:
                 head = head.previous;
+        '''
 
         return self;
 
@@ -115,7 +117,7 @@ n._append(107);
 n = n.remove(107);
 n = n.remove(101);
 n = n.remove(1);
-print('AFTER: ', n.toObject()); # n.toObject();
+print('AFTER: ', n); # n.toObject();
 # print(n.toObject());
 # print(n.toObject());
 print(time() - start);
