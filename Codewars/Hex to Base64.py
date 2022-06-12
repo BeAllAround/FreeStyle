@@ -19,6 +19,7 @@ _text = '''000000   A   010000  Q   100000  g   110000  w
 
 l = re.split('\t|\n', _text);
 _d = {};
+
 for x in range(0, len(l), 2):
     _d[l[x]] =  l[x+1];
 
