@@ -25,7 +25,6 @@ function _sort(a){
 function solve(arr){
   let _dict = [];
   let index;
-  arr.sort();
   for(let i of arr){
     if((index = findIndex(_dict, (v)=>v[0]==i)) != -1){
       _dict[index][1]++;
