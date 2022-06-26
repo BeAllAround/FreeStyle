@@ -29,5 +29,5 @@ Seneca().quiet()
     // editing description examples
     company.properties.description = `Found${company.properties.city}...`
     await company.save$();
-    console.log('REPO DATA: ', company);
+    console.log('COMPANY DATA: ', company);
   });
