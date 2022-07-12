@@ -4,7 +4,7 @@ function forward(s, start, l, toMatch){
         for(let i = start, j = 0; i < start+l && i < s.length && j < toMatch.length; i++, j++)
                 if(s[i] != toMatch[j])
                         return false;
-        return true;
+        return true
 }
 
 function _format(s, ...args){
