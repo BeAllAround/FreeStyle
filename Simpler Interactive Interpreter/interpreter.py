@@ -120,6 +120,10 @@ def main():
     inputs.append(interpreter.input("_x = 1"))
     inputs.append(interpreter.input("_x"))
 
+    inputs.append(interpreter.input("_01 = _02 = _03 = 2")) # nested def
+
+    inputs.append(interpreter.input("(_04 = (_05 = (_06 = 3)))"))
+
     print(interpreter.vars)
     print(inputs)
 
