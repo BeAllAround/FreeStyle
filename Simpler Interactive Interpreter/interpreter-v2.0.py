@@ -149,13 +149,13 @@ def parse_val(token: Parser, get: bool):
             while True:
                 if token == '=>':
                     # print('=>!!!')
-                    token.next_token() # eat last token, which is '>'
+                    token.next_token() # eat the last token, which is '>'
                     break
 
                 v = parse_tem(token, False)
+                skip_space(token)
                 args.append(v)
                 # print('args: ', args)
-                skip_space(token)
 
             fnc_body = ''
             while not token.is_over():
@@ -171,7 +171,7 @@ def parse_val(token: Parser, get: bool):
                     vars_c[args[arg_x]] = _args[arg_x]
                 p = Parser(fnc_body)
                 p.set_vars(vars_c)
-                return expr(p, False)
+                return single_expr(p)
                 # print('vars_c: ', vars_c)
             _vars[fName] = _lambda
             test_args = []
@@ -228,6 +228,15 @@ def parse_tem(token: Parser, get: bool, skip_s: bool = True):
         value += token.current
         token.next_token()
     return value
+
+def single_expr(parser, get: bool = False): # single expression for func body
+    skip_space(parser)
+    if parser.is_over():
+        return ''
+    evaluated = expr(parser, get)
+    if not parser.is_over():
+        raise SyntaxError("Unexpected token " + parser.current)
+    return evaluated
 
 class Interpreter:
     def __init__(self):
