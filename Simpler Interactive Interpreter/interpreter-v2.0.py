@@ -166,7 +166,7 @@ def parse_val(token: Parser, get: bool):
                 vars_c = {}
                 # vars_c.update(_vars) # requires unique scope
                 if len(_args) != len(args):
-                    raise TypeError("Too many args")
+                    raise TypeError("Invalid args")
                 for arg_x in range(0, len(_args)):
                     vars_c[args[arg_x]] = _args[arg_x]
                 p = Parser(fnc_body)
