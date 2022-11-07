@@ -220,7 +220,6 @@ def parse_tem(token: Parser, get: bool, skip_s: bool = True):
         skip_space(token)
     value = ''
     if (not token.current.isalpha()) and (token.current != '_'):
-        return 
         raise SyntaxError("Expected a template to start with an alpha or _")
     value += token.current
     token.next_token()
