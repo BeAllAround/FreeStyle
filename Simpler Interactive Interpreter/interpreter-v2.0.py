@@ -83,7 +83,7 @@ def prim(token: Parser, get: bool):
     skip_space(token)
     if token == '(':
         value = expr(token, True)
-        value_ptr = [value]
+        # value_ptr = [value]
         if token != ')':
             raise SyntaxError("Missing ')'")
         token.next_token() # eat ')'
