@@ -1,31 +1,88 @@
 #include <iostream>
 
+using namespace std;
+
 class INT{
-        int n;
         public:
+        int n;
                 INT(int _n):n{_n}{};
-                operator int(){ // redirection
-                        return n;
-                };
-                INT&operator()(int v){
-                        n += v;
-                        return *this;
+  
+                INT(INT&other) : n{other.n} {};
+                INT(INT&&other) : n{other.n} {};
+  
+                INT operator()(int v){
+                        return INT(n+v);
                 }
-                bool operator==(int b){
-                        return n == b;
+  
+                bool operator==(const int other){
+                  return n==other;
                 }
+  
+                bool operator!=(const int other){
+                  return n!=other;
+                  }
+  
+                bool operator==(const INT other){
+                  return n == other.n;
+                }
+  
+    bool operator<(const int other) const
+    {
+        return n == other;
+    }
+    bool operator>(const int other) const
+    {
+      return n == other;
+      }
+  
+    INT operator+(const int other) const
+      {
+      
+      return INT(n+ other);
+    }
+    INT operator-(const int other) const
+      {
+      return INT(n-other);
+      }
+  
+    INT operator*(const int other) const
+      {
+      return INT(n* other);
+      }
+  
+    INT operator/(const int other) const
+      {
+      return INT(n/ other);
+      }
+  
+                INT& operator=(INT other) {
+                  n = other.n;
+                  return *this;
+                }
+  
+                operator int() const{ // const IMPORTANT!
+                  return n;
+                }
+  
+                INT& operator=(int other) {
+                  n = other;
+                  return *this;
+                }
+  /*
+                */
 
 };
 
-auto add(int n){
-        return INT(n);
+ostream&operator<<(ostream&S, const INT& b) {
+ S << b.n;
+ return S; 
 }
 
-void print(int v){
-        std::cout << v << std::endl;
+INT _add(int n)
+{
+  return n;
 }
 
-int main(){
-        std::cout << ((add(5)(4)(100)(1)) == 110) <<std::endl;
-        return 0;
-}  
+#define add(n) _add(n)
+// #define add(n) (int)_add(n)
+// #define add(n)(n1) (INT)_add(n)(n1)
